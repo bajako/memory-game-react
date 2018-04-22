@@ -9629,7 +9629,7 @@ document.addEventListener('DOMContentLoaded', function () {
             _this.componentDidMount = function () {
                 _this.intervalId = setInterval(function () {
 
-                    if (_this.state.points > 3) {
+                    if (_this.state.points > 8) {
                         _this.setState(function (prevState) {
                             return {
                                 time: prevState.time
@@ -9800,7 +9800,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 var items = '';
 
-                if (this.state.points > 3) {
+                if (this.state.points > 8) {
                     var czas = this.state.time;
 
                     var wynik = ' ' + (czas < 10 ? '00:0' + czas : czas < 60 ? '00:' + czas : czas % 60 < 10 ? '0' + Math.floor(czas / 60) + ':0' + czas % 60 : '0' + Math.floor(czas / 60) + ':' + czas % 60);
@@ -9925,7 +9925,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     items = _easy2.default.map(function (image) {
 
-                        return _react2.default.createElement('input', { type: 'image', src: image.image, disabled: image.disable,
+                        return _react2.default.createElement('input', { type: 'image', src: image.cover, disabled: image.disable,
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e, image);
                             }, className: 'memoryItem', key: image.duo });

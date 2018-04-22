@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         componentDidMount = () => {
             this.intervalId = setInterval(() => {
 
-                if (this.state.points > 3) {
+                if (this.state.points > 8) {
                     this.setState(prevState => ({
                         time: prevState.time
                     }))
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let items = '';
 
-            if (this.state.points > 3) {
+            if (this.state.points > 8) {
                 let czas = this.state.time;
 
                 let wynik = ` ${czas < 10 ?
@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
                     return (
-                        <input type="image" src={image.image} disabled={image.disable}
+                        <input type="image" src={image.cover} disabled={image.disable}
                                onClick={e => this.handleClick(e, image)} className='memoryItem' key={image.duo}/>
 
                     )
