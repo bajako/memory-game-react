@@ -1,0 +1,105 @@
+
+
+body {
+    margin: 0;
+    font-family: 'Dosis', sans-serif;
+}
+
+.memoryItem {
+    width: 120px;
+    height: 120px;
+    margin: 10px;
+}
+
+.duza{
+    font-size: 50px;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    font-weight: bold;
+
+
+}
+.top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: white;
+    margin: 0 auto;
+    width: 900px;
+}
+
+.memoryTable {
+    display: flex;
+    flex-wrap: wrap;
+    width: 1000px;
+    justify-content: center;
+    background-color: white;
+}
+
+input {
+    outline: none;
+}
+
+.level{
+    margin-top: 30px;
+}
+
+.polowa{
+    width: 50%;
+    text-align: center;
+}
+
+.fullScreen {
+    position: fixed;
+    width: 50%;
+    height: 50%;
+    left: 25%;
+    top: 25%;
+    z-index: 1;
+    background:lightskyblue;
+}
+
+
+
+
+
+
+.btn1 {
+    font-size: 30px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 10px;
+}
+
+.btn1:hover {
+    background-color: lightskyblue;
+    color: white;
+}
+
+
+.bottom{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    align-self: flex-end;
+}
+
+
+.btn2 {
+    font-size: 15px;
+    background-color: lightskyblue;
+    color: black;
+    border: 1px solid deepskyblue ;
+    border-radius: 10px;
+    width: 100px;
+    height: 30px;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.btn2:hover {
+    background-color: white;
+    color: lightskyblue;
+}
