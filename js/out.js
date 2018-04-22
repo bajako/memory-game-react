@@ -9629,7 +9629,7 @@ document.addEventListener('DOMContentLoaded', function () {
             _this.componentDidMount = function () {
                 _this.intervalId = setInterval(function () {
 
-                    if (_this.state.points > 8) {
+                    if (_this.state.points > 3) {
                         _this.setState(function (prevState) {
                             return {
                                 time: prevState.time
@@ -9800,7 +9800,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 var items = '';
 
-                if (this.state.points > 8) {
+                if (this.state.points > 3) {
                     var czas = this.state.time;
 
                     var wynik = ' ' + (czas < 10 ? '00:0' + czas : czas < 60 ? '00:' + czas : czas % 60 < 10 ? '0' + Math.floor(czas / 60) + ':0' + czas % 60 : '0' + Math.floor(czas / 60) + ':' + czas % 60);
@@ -9857,18 +9857,38 @@ document.addEventListener('DOMContentLoaded', function () {
                             _react2.default.createElement(
                                 'h3',
                                 null,
-                                recordArr.length < 5 && _react2.default.createElement(
+                                recordArr.length < 5 ? _react2.default.createElement(
                                     'form',
                                     { onSubmit: function onSubmit(e) {
                                             return _this2.handleSubmit(e, recordArr);
                                         } },
-                                    _react2.default.createElement('input', { disabled: this.state.active,
+                                    _react2.default.createElement('input', {
+                                        disabled: this.state.active,
                                         type: 'text',
                                         hidden: this.state.active,
                                         onChange: this.handleNameChange }),
                                     _react2.default.createElement('input', {
-                                        hidden: this.state.active, disabled: this.state.active, type: 'submit', value: 'Wpisz imi\u0119',
+                                        hidden: this.state.active, disabled: this.state.active, type: 'submit',
+                                        value: 'Wpisz imi\u0119',
                                         className: 'btn2' })
+                                ) : miejsce.czas < recordArr[recordArr.length - 2].czas ? recordArr.splice(recordArr.length - 2, 1) && _react2.default.createElement(
+                                    'form',
+                                    { onSubmit: function onSubmit(e) {
+                                            return _this2.handleSubmit(e, recordArr);
+                                        } },
+                                    _react2.default.createElement('input', {
+                                        disabled: this.state.active,
+                                        type: 'text',
+                                        hidden: this.state.active,
+                                        onChange: this.handleNameChange }),
+                                    _react2.default.createElement('input', {
+                                        hidden: this.state.active, disabled: this.state.active, type: 'submit',
+                                        value: 'Wpisz imi\u0119',
+                                        className: 'btn2' })
+                                ) : _react2.default.createElement(
+                                    'a',
+                                    null,
+                                    'oj s\u0142abiutko ;)'
                                 )
                             )
                         ),
@@ -9905,7 +9925,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     items = _easy2.default.map(function (image) {
 
-                        return _react2.default.createElement('input', { type: 'image', src: image.cover, disabled: image.disable,
+                        return _react2.default.createElement('input', { type: 'image', src: image.image, disabled: image.disable,
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e, image);
                             }, className: 'memoryItem', key: image.duo });

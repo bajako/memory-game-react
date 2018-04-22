@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         componentDidMount = () => {
             this.intervalId = setInterval(() => {
 
-                if (this.state.points > 8) {
+                if (this.state.points > 3) {
                     this.setState(prevState => ({
                         time: prevState.time
                     }))
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let items = '';
 
-            if (this.state.points > 8) {
+            if (this.state.points > 3) {
                 let czas = this.state.time;
 
                 let wynik = ` ${czas < 10 ?
@@ -211,24 +211,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 recordArr.push(miejsce);
 
-
                 return (<div className='fullScreen memoryTable'>
                         <div className='polowa'>
                             <p>Gratulacje!</p>
                             <h4>Twój wynik to {wynik}</h4>
 
-                            <h3>{recordArr.length < 5
+                            <h3>
 
-                            &&
+                                {recordArr.length < 5
 
-                            <form onSubmit={e => this.handleSubmit(e, recordArr)}><input disabled={this.state.active}
-                                                                                         type='text'
-                                                                                         hidden={this.state.active}
-                                                                                         onChange={this.handleNameChange}/><input
-                                hidden={this.state.active} disabled={this.state.active} type='submit' value='Wpisz imię'
-                                className='btn2'/>
-                            </form>}
+                                    ?
 
+                                    <form onSubmit={e => this.handleSubmit(e, recordArr)}><input
+                                        disabled={this.state.active}
+                                        type='text'
+                                        hidden={this.state.active}
+                                        onChange={this.handleNameChange}/><input
+                                        hidden={this.state.active} disabled={this.state.active} type='submit'
+                                        value='Wpisz imię'
+                                        className='btn2'/>
+                                    </form>
+                                    :
+                                    miejsce.czas < recordArr[recordArr.length - 2].czas
+                                        ?
+                                        recordArr.splice(recordArr.length - 2, 1) &&
+                                        <form onSubmit={e => this.handleSubmit(e, recordArr)}><input
+                                            disabled={this.state.active}
+                                            type='text'
+                                            hidden={this.state.active}
+                                            onChange={this.handleNameChange}/><input
+                                            hidden={this.state.active} disabled={this.state.active} type='submit'
+                                            value='Wpisz imię'
+                                            className='btn2'/>
+                                        </form>
+                                        :
+                                        <a>oj słabiutko ;)</a>
+                                }
 
                             </h3>
                         </div>
@@ -262,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
                     return (
-                        <input type="image" src={image.cover} disabled={image.disable}
+                        <input type="image" src={image.image} disabled={image.disable}
                                onClick={e => this.handleClick(e, image)} className='memoryItem' key={image.duo}/>
 
                     )
