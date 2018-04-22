@@ -9770,7 +9770,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     active: true
                 });
 
-                localStorage.setItem("rekordy", JSON.stringify(arr));
+                localStorage.setItem("memoRekords", JSON.stringify(arr));
             };
 
             _this.state = {
@@ -9803,7 +9803,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (this.state.points > 8) {
                     var czas = this.state.time;
 
-                    var wynik = ' ' + (czas < 10 ? '00:0' + czas : czas < 60 ? '00:' + czas : czas && '0' + Math.floor(czas / 60) + ':' + czas % 60);
+                    var wynik = ' ' + (czas < 10 ? '00:0' + czas : czas < 60 ? '00:' + czas : czas % 60 < 10 ? '0' + Math.floor(czas / 60) + ':0' + czas % 60 : '0' + Math.floor(czas / 60) + ':' + czas % 60);
 
                     var miejsce = {
                         name: this.state.name,
@@ -9811,7 +9811,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         czas: czas
                     };
 
-                    var recordArr = JSON.parse(localStorage.getItem('rekordy'));
+                    var recordArr = typeof localStorage['memoRekords'] != 'undefined' ? JSON.parse(localStorage.getItem('memoRekords')) : [{ name: 'Test', wynik: '03:50', czas: 230 }];
 
                     var tabl = recordArr.sort(function (a, b) {
                         return a.czas - b.czas;
