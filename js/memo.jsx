@@ -12,13 +12,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (this.state.points > 8) {
                     this.setState(prevState => ({
-                        time: prevState.time
+                        timer: prevState.timer
                     }))
                 }
 
                 else if (!this.state.random) {
                     this.setState(prevState => ({
-                        time: prevState.time + 1
+                        timer: prevState.timer + 1
                     }))
                 }
             }, 1000)
@@ -43,47 +43,47 @@ document.addEventListener('DOMContentLoaded', function () {
                 array[randomIndex] = temporaryValue;
             }
 
-            array.forEach(function (el) {
-                el.disable = false;
-                el.cover = 'img/cover.png';
+            array.forEach(function (playersChoice) {
+                playersChoice.disable = false;
+                playersChoice.cover = 'img/cover.png';
             });
 
 
             return array;
         };
         // kliknięcie w planszę
-        handleClick = (e, el) => {
+        handleClick = (e, playersChoice) => {
             this.setState({
                 random: false,
-                el: el,
-                disable: el.disable
+                playersChoice: playersChoice,
+                disable: playersChoice.disable
             });
 
 
             //gdy zaczynam pierwszą grę lub gdy przed chwilą odkryłem parę
-            if (this.state.duo === "") {
+            if (this.state.pair === "") {
                 this.setState({
-                    duo: el.duo
+                    pair: playersChoice.pair
                 });
 
 
                 this.setState(prevState => ({
-                        elPrev: prevState.el
+                        prevPlayersChoice: prevState.playersChoice
                     }
                 ));
 
-                el.cover = el.image
+                playersChoice.cover = playersChoice.image
             }
 
             // jeśli drugie kliknięcie nie odkrywa tej samej planszy
-            else if (!(el.duo === 1 + this.state.duo || el.duo === this.state.duo.substr(1))) {
+            else if (!(playersChoice.pair === 1 + this.state.pair || playersChoice.pair === this.state.pair.substr(1))) {
 
 
-                el.cover = el.image;
+                playersChoice.cover = playersChoice.image;
                 //biała kropka przyjmuje obraz elementu
 
 
-                this.handleRestart(el, this.state.elPrev)
+                this.handleRestart(playersChoice, this.state.prevPlayersChoice)
                 //     karty znowu stają się białe
 
 
@@ -97,37 +97,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 this.setState(prevState => ({
                         points: prevState.points + 1,
-                        elPrev: prevState.el
+                        prevPlayersChoice: prevState.playersChoice
                     }
                 ));
 
 
                 this.setState({
-                    duo: '',
-                    el: el
+                    pair: '',
+                    playersChoice: playersChoice
                 });
 
 
-                el.cover = el.image;
-                this.state.elPrev.disable = true;
+                playersChoice.cover = playersChoice.image;
+                this.state.prevPlayersChoice.disable = true;
                 this.state.cover = this.state.image;
-                el.disable = true
+                playersChoice.disable = true
 
             }
 
 
         };
         // po nieudanej próbie plansze ponownie zmieniają się na kropkę
-        handleRestart = (el, elPrev) => {
+        handleRestart = (playersChoice, prevPlayersChoice) => {
             setTimeout(() => {
                 this.setState({
-                    duo: '',
-                    el: '',
+                    pair: '',
+                    playersChoice: '',
                     image: '',
                     cover: ''
                 });
-                el.cover = 'img/cover.png';
-                elPrev.cover = 'img/cover.png';
+                playersChoice.cover = 'img/cover.png';
+                prevPlayersChoice.cover = 'img/cover.png';
             }, 200)
         };
         handleEasy = () => {
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
         handleNameChange = (event) => {
             this.setState({
-                name: event.target.value
+                playersName: event.target.value
             })
         };
         handleSubmit = (e, arr) => {
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
 
-            localStorage.setItem("memoRekords", JSON.stringify(arr));
+            localStorage.setItem("memoRecords", JSON.stringify(arr));
 
         };
 
@@ -164,13 +164,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 points: 0,
                 cover: '',
                 random: true,
-                duo: '',
-                el: '',
-                elPrev: '',
+                pair: '',
+                playersChoice: '',
+                prevPlayersChoice: '',
                 disable: false,
-                time: 0,
+                timer: 0,
                 level: 'easy',
-                name: '',
+                playersName: '',
                 active: false
             }
         }
@@ -180,41 +180,41 @@ document.addEventListener('DOMContentLoaded', function () {
             let items = '';
 
             if (this.state.points > 8) {
-                let czas = this.state.time;
+                let playersTime = this.state.timer;
 
-                let wynik = ` ${czas < 10 ?
-                    '00:0' + czas
-                    : czas < 60 ?
-                        '00:' + czas
-                        : czas % 60 < 10 ?
-                            '0' + Math.floor(czas / 60) + ':0' + czas % 60 :
-                            '0' + Math.floor(czas / 60) + ':' + czas % 60}`;
+                let playersResult = ` ${playersTime < 10 ?
+                    '00:0' + playersTime
+                    : playersTime < 60 ?
+                        '00:' + playersTime
+                        : playersTime % 60 < 10 ?
+                            '0' + Math.floor(playersTime / 60) + ':0' + playersTime % 60 :
+                            '0' + Math.floor(playersTime / 60) + ':' + playersTime % 60}`;
 
                 let miejsce = {
-                    name: this.state.name,
-                    wynik: wynik,
-                    czas: czas
+                    playersName: this.state.playersName,
+                    playersResult: playersResult,
+                    playersTime: playersTime
                 };
 
 
-                var recordArr = (typeof localStorage['memoRekords'] != 'undefined') ? JSON.parse(localStorage.getItem('memoRekords')) : [
-                    {name: 'Test', wynik: '03:50', czas: 230}]
+                var recordArr = (typeof localStorage['memoRecords'] != 'undefined') ? JSON.parse(localStorage.getItem('memoRecords')) : [
+                    {playersName: 'Test', playersResult: '03:50', playersTime: 230}]
 
 
                 let tabl = recordArr.sort(function (a, b) {
-                    return a.czas - b.czas
+                    return a.playersTime - b.playersTime
                 }).map((recordArr, index) =>
                     <p key={index}>{index + 1}
-                        <span>   {recordArr.name}  </span>
-                        <span>{recordArr.wynik}</span>
+                        <span>   {recordArr.playersName}  </span>
+                        <span>{recordArr.playersResult}</span>
                     </p>);
 
                 recordArr.push(miejsce);
 
                 return (<div className='fullScreen memoryTable'>
-                        <div className='polowa'>
+                        <div className='two_col'>
                             <p>Gratulacje!</p>
-                            <h4>Twój wynik to {wynik}</h4>
+                            <h4>Twój wynik to {playersResult}</h4>
 
                             <h3>
 
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                         className='btn2'/>
                                     </form>
                                     :
-                                    miejsce.czas < recordArr[recordArr.length - 2].czas
+                                    miejsce.playersTime < recordArr[recordArr.length - 2].playersTime
                                         ?
                                         recordArr.splice(recordArr.length - 2, 1) &&
                                         <form onSubmit={e => this.handleSubmit(e, recordArr)}><input
@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
 
 
-                        <div className='polowa'>
+                        <div className='two_col'>
                             <p>Tablica wyników</p>
                             <h4> {tabl} </h4>
 
@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     return (
                         <input type="image" src={image.cover} disabled={image.disable}
-                               onClick={e => this.handleClick(e, image)} className='memoryItem' key={image.duo}/>
+                               onClick={e => this.handleClick(e, image)} className='memoryItem' key={image.pair}/>
 
                     )
                 });
@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     return (
                         <input type="image" src={image.cover} disabled={image.disable}
-                               onClick={e => this.handleClick(e, image)} className='memoryItem' key={image.duo}/>
+                               onClick={e => this.handleClick(e, image)} className='memoryItem' key={image.pair}/>
 
                     )
                 });
@@ -307,15 +307,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
             return (
-                <div className='top'>
-                    <div className='duza'>Mem.ry game</div>
+                <div className='container'>
+                    <header>Mem.ry game</header>
                     <div className='level'>
                         <input type='button' className='btn1' value='łatwa' onClick={this.handleEasy}/>
                         <input type='button' className='btn1' value='trudna' onClick={this.handleHard}/>
                     </div>
-
                     <div className='memoryTable'>
-
                         {items}
                     </div>
                 </div>

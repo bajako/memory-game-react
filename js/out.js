@@ -9632,13 +9632,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (_this.state.points > 8) {
                         _this.setState(function (prevState) {
                             return {
-                                time: prevState.time
+                                timer: prevState.timer
                             };
                         });
                     } else if (!_this.state.random) {
                         _this.setState(function (prevState) {
                             return {
-                                time: prevState.time + 1
+                                timer: prevState.timer + 1
                             };
                         });
                     }
@@ -9667,44 +9667,44 @@ document.addEventListener('DOMContentLoaded', function () {
                     array[randomIndex] = temporaryValue;
                 }
 
-                array.forEach(function (el) {
-                    el.disable = false;
-                    el.cover = 'img/cover.png';
+                array.forEach(function (playersChoice) {
+                    playersChoice.disable = false;
+                    playersChoice.cover = 'img/cover.png';
                 });
 
                 return array;
             };
 
-            _this.handleClick = function (e, el) {
+            _this.handleClick = function (e, playersChoice) {
                 _this.setState({
                     random: false,
-                    el: el,
-                    disable: el.disable
+                    playersChoice: playersChoice,
+                    disable: playersChoice.disable
                 });
 
                 //gdy zaczynam pierwszą grę lub gdy przed chwilą odkryłem parę
-                if (_this.state.duo === "") {
+                if (_this.state.pair === "") {
                     _this.setState({
-                        duo: el.duo
+                        pair: playersChoice.pair
                     });
 
                     _this.setState(function (prevState) {
                         return {
-                            elPrev: prevState.el
+                            prevPlayersChoice: prevState.playersChoice
                         };
                     });
 
-                    el.cover = el.image;
+                    playersChoice.cover = playersChoice.image;
                 }
 
                 // jeśli drugie kliknięcie nie odkrywa tej samej planszy
-                else if (!(el.duo === 1 + _this.state.duo || el.duo === _this.state.duo.substr(1))) {
+                else if (!(playersChoice.pair === 1 + _this.state.pair || playersChoice.pair === _this.state.pair.substr(1))) {
 
-                        el.cover = el.image;
+                        playersChoice.cover = playersChoice.image;
                         //biała kropka przyjmuje obraz elementu
 
 
-                        _this.handleRestart(el, _this.state.elPrev);
+                        _this.handleRestart(playersChoice, _this.state.prevPlayersChoice);
                         //     karty znowu stają się białe
 
                     }
@@ -9715,32 +9715,32 @@ document.addEventListener('DOMContentLoaded', function () {
                             _this.setState(function (prevState) {
                                 return {
                                     points: prevState.points + 1,
-                                    elPrev: prevState.el
+                                    prevPlayersChoice: prevState.playersChoice
                                 };
                             });
 
                             _this.setState({
-                                duo: '',
-                                el: el
+                                pair: '',
+                                playersChoice: playersChoice
                             });
 
-                            el.cover = el.image;
-                            _this.state.elPrev.disable = true;
+                            playersChoice.cover = playersChoice.image;
+                            _this.state.prevPlayersChoice.disable = true;
                             _this.state.cover = _this.state.image;
-                            el.disable = true;
+                            playersChoice.disable = true;
                         }
             };
 
-            _this.handleRestart = function (el, elPrev) {
+            _this.handleRestart = function (playersChoice, prevPlayersChoice) {
                 setTimeout(function () {
                     _this.setState({
-                        duo: '',
-                        el: '',
+                        pair: '',
+                        playersChoice: '',
                         image: '',
                         cover: ''
                     });
-                    el.cover = 'img/cover.png';
-                    elPrev.cover = 'img/cover.png';
+                    playersChoice.cover = 'img/cover.png';
+                    prevPlayersChoice.cover = 'img/cover.png';
                 }, 200);
             };
 
@@ -9760,7 +9760,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             _this.handleNameChange = function (event) {
                 _this.setState({
-                    name: event.target.value
+                    playersName: event.target.value
                 });
             };
 
@@ -9770,20 +9770,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     active: true
                 });
 
-                localStorage.setItem("memoRekords", JSON.stringify(arr));
+                localStorage.setItem("memoRecords", JSON.stringify(arr));
             };
 
             _this.state = {
                 points: 0,
                 cover: '',
                 random: true,
-                duo: '',
-                el: '',
-                elPrev: '',
+                pair: '',
+                playersChoice: '',
+                prevPlayersChoice: '',
                 disable: false,
-                time: 0,
+                timer: 0,
                 level: 'easy',
-                name: '',
+                playersName: '',
                 active: false
             };
             return _this;
@@ -9801,20 +9801,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 var items = '';
 
                 if (this.state.points > 8) {
-                    var czas = this.state.time;
+                    var playersTime = this.state.timer;
 
-                    var wynik = ' ' + (czas < 10 ? '00:0' + czas : czas < 60 ? '00:' + czas : czas % 60 < 10 ? '0' + Math.floor(czas / 60) + ':0' + czas % 60 : '0' + Math.floor(czas / 60) + ':' + czas % 60);
+                    var playersResult = ' ' + (playersTime < 10 ? '00:0' + playersTime : playersTime < 60 ? '00:' + playersTime : playersTime % 60 < 10 ? '0' + Math.floor(playersTime / 60) + ':0' + playersTime % 60 : '0' + Math.floor(playersTime / 60) + ':' + playersTime % 60);
 
                     var miejsce = {
-                        name: this.state.name,
-                        wynik: wynik,
-                        czas: czas
+                        playersName: this.state.playersName,
+                        playersResult: playersResult,
+                        playersTime: playersTime
                     };
 
-                    var recordArr = typeof localStorage['memoRekords'] != 'undefined' ? JSON.parse(localStorage.getItem('memoRekords')) : [{ name: 'Test', wynik: '03:50', czas: 230 }];
+                    var recordArr = typeof localStorage['memoRecords'] != 'undefined' ? JSON.parse(localStorage.getItem('memoRecords')) : [{ playersName: 'Test', playersResult: '03:50', playersTime: 230 }];
 
                     var tabl = recordArr.sort(function (a, b) {
-                        return a.czas - b.czas;
+                        return a.playersTime - b.playersTime;
                     }).map(function (recordArr, index) {
                         return _react2.default.createElement(
                             'p',
@@ -9824,13 +9824,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                 'span',
                                 null,
                                 '   ',
-                                recordArr.name,
+                                recordArr.playersName,
                                 '  '
                             ),
                             _react2.default.createElement(
                                 'span',
                                 null,
-                                recordArr.wynik
+                                recordArr.playersResult
                             )
                         );
                     });
@@ -9842,7 +9842,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         { className: 'fullScreen memoryTable' },
                         _react2.default.createElement(
                             'div',
-                            { className: 'polowa' },
+                            { className: 'two_col' },
                             _react2.default.createElement(
                                 'p',
                                 null,
@@ -9852,7 +9852,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 'h4',
                                 null,
                                 'Tw\xF3j wynik to ',
-                                wynik
+                                playersResult
                             ),
                             _react2.default.createElement(
                                 'h3',
@@ -9871,7 +9871,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                         hidden: this.state.active, disabled: this.state.active, type: 'submit',
                                         value: 'Wpisz imi\u0119',
                                         className: 'btn2' })
-                                ) : miejsce.czas < recordArr[recordArr.length - 2].czas ? recordArr.splice(recordArr.length - 2, 1) && _react2.default.createElement(
+                                ) : miejsce.playersTime < recordArr[recordArr.length - 2].playersTime ? recordArr.splice(recordArr.length - 2, 1) && _react2.default.createElement(
                                     'form',
                                     { onSubmit: function onSubmit(e) {
                                             return _this2.handleSubmit(e, recordArr);
@@ -9894,7 +9894,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         ),
                         _react2.default.createElement(
                             'div',
-                            { className: 'polowa' },
+                            { className: 'two_col' },
                             _react2.default.createElement(
                                 'p',
                                 null,
@@ -9928,7 +9928,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         return _react2.default.createElement('input', { type: 'image', src: image.cover, disabled: image.disable,
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e, image);
-                            }, className: 'memoryItem', key: image.duo });
+                            }, className: 'memoryItem', key: image.pair });
                     });
                 } else if (this.state.level === 'hard') {
 
@@ -9941,16 +9941,16 @@ document.addEventListener('DOMContentLoaded', function () {
                         return _react2.default.createElement('input', { type: 'image', src: image.cover, disabled: image.disable,
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e, image);
-                            }, className: 'memoryItem', key: image.duo });
+                            }, className: 'memoryItem', key: image.pair });
                     });
                 }
 
                 return _react2.default.createElement(
                     'div',
-                    { className: 'top' },
+                    { className: 'container' },
                     _react2.default.createElement(
-                        'div',
-                        { className: 'duza' },
+                        'header',
+                        null,
                         'Mem.ry game'
                     ),
                     _react2.default.createElement(
@@ -22531,128 +22531,110 @@ module.exports = [
     {
         image: 'img/animal1.png',
         cover: 'img/cover.png',
-        id: '1',
-        duo: 'one',
+        pair: 'one',
         disable: false
 
     },
     {
         image: 'img/animal1.png',
         cover: 'img/cover.png',
-        id: '2',
-        duo: '1one',
+        pair: '1one',
         disable: false
     },
     {
         image: 'img/animal2.png',
         cover: 'img/cover.png',
-        id: '3',
-        duo: 'two',
+        pair: 'two',
         disable: false
     },
     {
         image: 'img/animal2.png',
         cover: 'img/cover.png',
-        id: '4',
-        duo: '1two',
+        pair: '1two',
         disable: false
     },
     {
         image: 'img/animal3.png',
         cover: 'img/cover.png',
-        id: '5',
-        duo: 'three',
+        pair: 'three',
         disable: false
     },
     {
         image: 'img/animal3.png',
         cover: 'img/cover.png',
-        id: '6',
-        duo: '1three',
+        pair: '1three',
         disable: false
     },
     {
         image: 'img/animal4.png',
         cover: 'img/cover.png',
-        id: '7',
-        duo: 'four',
+        pair: 'four',
         disable: false
     },
     {
         image: 'img/animal4.png',
         cover: 'img/cover.png',
-        id: '8',
-        duo: '1four',
+        pair: '1four',
         disable: false
     },
     {
         image: 'img/animal5.png',
         cover: 'img/cover.png',
-        id: '9',
-        duo: 'five',
+        pair: 'five',
         disable: false
     },
     {
         image: 'img/animal5.png',
         cover: 'img/cover.png',
-        id: '10',
-        duo: '1five',
+        pair: '1five',
         disable: false
     },
     {
         image: 'img/animal6.png',
         cover: 'img/cover.png',
-        id: '11',
-        duo: 'six',
+        pair: 'six',
         disable: false
     },
     {
         image: 'img/animal6.png',
         cover: 'img/cover.png',
-        id: '12',
-        duo: '1six',
+        pair: '1six',
         disable: false
     },
     {
         image: 'img/animal7.png',
         cover: 'img/cover.png',
-        id: '13',
-        duo: 'seven',
+        pair: 'seven',
         disable: false
     },
     {
         image: 'img/animal7.png',
         cover: 'img/cover.png',
-        id: '14',
-        duo: '1seven',
+        pair: '1seven',
         disable: false
     },
     {
         image: 'img/animal8.png',
         cover: 'img/cover.png',
-        id: '15',
-        duo: 'eight',
+        pair: 'eight',
         disable: false
     },
     {
         image: 'img/animal8.png',
         cover: 'img/cover.png',
-        id: '16',
-        duo: '1eight',
+        pair: '1eight',
         disable: false
     },
     {
         image: 'img/animal9.png',
         cover: 'img/cover.png',
-        id: '17',
-        duo: 'nine',
+        pair: 'nine',
         disable: false
     },
     {
         image: 'img/animal9.png',
         cover: 'img/cover.png',
-        id: '18',
-        duo: '1nine',
+        pair: '1nine',
         disable: false
     }
 ];
@@ -22667,128 +22649,110 @@ module.exports = [
     {
         image: 'img/cloud1.png',
         cover: 'img/cover.png',
-        id: '1',
-        duo: 'one',
+        pair: 'one',
         disable: false
 
     },
     {
         image: 'img/cloud1.png',
         cover: 'img/cover.png',
-        id: '2',
-        duo: '1one',
+        pair: '1one',
         disable: false
     },
     {
         image: 'img/cloud2.png',
         cover: 'img/cover.png',
-        id: '3',
-        duo: 'two',
+        pair: 'two',
         disable: false
     },
     {
         image: 'img/cloud2.png',
         cover: 'img/cover.png',
-        id: '4',
-        duo: '1two',
+        pair: '1two',
         disable: false
     },
     {
         image: 'img/cloud3.png',
         cover: 'img/cover.png',
-        id: '5',
-        duo: 'three',
+        pair: 'three',
         disable: false
     },
     {
         image: 'img/cloud3.png',
         cover: 'img/cover.png',
-        id: '6',
-        duo: '1three',
+        pair: '1three',
         disable: false
     },
     {
         image: 'img/cloud4.png',
         cover: 'img/cover.png',
-        id: '7',
-        duo: 'four',
+        pair: 'four',
         disable: false
     },
     {
         image: 'img/cloud4.png',
         cover: 'img/cover.png',
-        id: '8',
-        duo: '1four',
+        pair: '1four',
         disable: false
     },
     {
         image: 'img/cloud5.png',
         cover: 'img/cover.png',
-        id: '9',
-        duo: 'five',
+        pair: 'five',
         disable: false
     },
     {
         image: 'img/cloud5.png',
         cover: 'img/cover.png',
-        id: '10',
-        duo: '1five',
+        pair: '1five',
         disable: false
     },
     {
         image: 'img/cloud6.png',
         cover: 'img/cover.png',
-        id: '11',
-        duo: 'six',
+        pair: 'six',
         disable: false
     },
     {
         image: 'img/cloud6.png',
         cover: 'img/cover.png',
-        id: '12',
-        duo: '1six',
+        pair: '1six',
         disable: false
     },
     {
         image: 'img/cloud7.png',
         cover: 'img/cover.png',
-        id: '13',
-        duo: 'seven',
+        pair: 'seven',
         disable: false
     },
     {
         image: 'img/cloud7.png',
         cover: 'img/cover.png',
-        id: '14',
-        duo: '1seven',
+        pair: '1seven',
         disable: false
     },
     {
         image: 'img/cloud8.png',
         cover: 'img/cover.png',
-        id: '15',
-        duo: 'eight',
+        pair: 'eight',
         disable: false
     },
     {
         image: 'img/cloud8.png',
         cover: 'img/cover.png',
-        id: '16',
-        duo: '1eight',
+        pair: '1eight',
         disable: false
     },
     {
         image: 'img/cloud9.png',
         cover: 'img/cover.png',
-        id: '17',
-        duo: 'nine',
+        pair: 'nine',
         disable: false
     },
     {
         image: 'img/cloud9.png',
         cover: 'img/cover.png',
-        id: '18',
-        duo: '1nine',
+        pair: '1nine',
         disable: false
     }
 ];
