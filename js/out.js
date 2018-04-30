@@ -9600,13 +9600,13 @@ var _reactDom = __webpack_require__(98);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _easy = __webpack_require__(184);
+var _LevelEasy = __webpack_require__(184);
 
-var _easy2 = _interopRequireDefault(_easy);
+var _LevelEasy2 = _interopRequireDefault(_LevelEasy);
 
-var _hard = __webpack_require__(185);
+var _LevelHard = __webpack_require__(185);
 
-var _hard2 = _interopRequireDefault(_hard);
+var _LevelHard2 = _interopRequireDefault(_LevelHard);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9616,381 +9616,367 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var MemoryTable = function (_React$Component) {
+  _inherits(MemoryTable, _React$Component);
+
+  function MemoryTable(props) {
+    _classCallCheck(this, MemoryTable);
+
+    var _this = _possibleConstructorReturn(this, (MemoryTable.__proto__ || Object.getPrototypeOf(MemoryTable)).call(this, props));
+
+    _this.shuffle = function (array) {
+      var currentIndex = array.length,
+          temporaryValue = void 0,
+          randomIndex = void 0;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      array.forEach(function (playersChoice) {
+        playersChoice.disable = false;
+        playersChoice.cover = 'img/cover.png';
+      });
+
+      return array;
+    };
+
+    _this.handleClick = function (e, playersChoice) {
+      _this.setState({
+        random: false,
+        playersChoice: playersChoice,
+        disable: playersChoice.disable
+      });
+
+      //gdy zaczynam pierwszą grę lub gdy przed chwilą odkryłem parę
+      if (_this.state.pair === '') {
+        _this.setState({
+          pair: playersChoice.pair
+        });
+
+        _this.setState(function (prevState) {
+          return {
+            prevPlayersChoice: prevState.playersChoice
+          };
+        });
+        playersChoice.cover = playersChoice.image;
+      }
+
+      // jeśli drugie kliknięcie nie odkrywa tej samej planszy
+      else if (!(playersChoice.pair === 1 + _this.state.pair || playersChoice.pair === _this.state.pair.substr(1))) {
+
+          playersChoice.cover = playersChoice.image;
+          //biała kropka przyjmuje obraz elementu
+
+          _this.handleRestart(playersChoice, _this.state.prevPlayersChoice);
+          //     karty znowu stają się białe
+        }
+
+        // jeśli mój dugi wybór odkrwa parę
+        else {
+
+            _this.setState(function (prevState) {
+              return {
+                points: prevState.points + 1,
+                prevPlayersChoice: prevState.playersChoice
+              };
+            });
+
+            _this.setState({
+              pair: '',
+              playersChoice: playersChoice
+            });
+
+            playersChoice.cover = playersChoice.image;
+            _this.state.prevPlayersChoice.disable = true;
+            _this.state.cover = _this.state.image;
+            playersChoice.disable = true;
+          }
+    };
+
+    _this.handleRestart = function (playersChoice, prevPlayersChoice) {
+      setTimeout(function () {
+        _this.setState({
+          pair: '',
+          playersChoice: '',
+          image: '',
+          cover: ''
+        });
+        playersChoice.cover = 'img/cover.png';
+        prevPlayersChoice.cover = 'img/cover.png';
+      }, 200);
+    };
+
+    _this.handleEasy = function () {
+      _this.setState({
+        level: 'easy',
+        random: true
+      });
+    };
+
+    _this.handleHard = function () {
+      _this.setState({
+        level: 'hard',
+        random: true
+      });
+    };
+
+    _this.handleNameChange = function (event) {
+      _this.setState({
+        playersName: event.target.value
+      });
+    };
+
+    _this.handleSubmit = function (e, arr) {
+      e.preventDefault();
+      _this.setState({
+        active: true
+      });
+
+      localStorage.setItem('memoRecords', JSON.stringify(arr));
+    };
+
+    _this.state = {
+      points: 0,
+      cover: '',
+      random: true,
+      pair: '',
+      playersChoice: '',
+      prevPlayersChoice: '',
+      disable: false,
+      timer: 0,
+      level: 'easy',
+      playersName: '',
+      active: false
+    };
+    return _this;
+  }
+
+  _createClass(MemoryTable, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.tick = function () {
+        if (_this2.state.points > 8) {
+          _this2.setState(function (prevState) {
+            return {
+              timer: prevState.timer
+            };
+          });
+        } else if (!_this2.state.random) {
+          _this2.setState(function (prevState) {
+            return {
+              timer: prevState.timer + 1
+            };
+          });
+        }
+        _this2.intervalId = setTimeout(_this2.tick, 1000);
+      };
+
+      this.intervalId = setTimeout(this.tick, 1000);
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      clearInterval(this.intervalId);
+    }
+
+    // po nieudanej próbie plansze ponownie zmieniają się na kropkę
+
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
+
+      var items = '';
+
+      if (this.state.points > 8) {
+        var playersTime = this.state.timer;
+
+        var playersResult = ' ' + (playersTime < 10 ? '00:0' + playersTime : playersTime < 60 ? '00:' + playersTime : playersTime % 60 < 10 ? '0' + Math.floor(playersTime / 60) + ':0' + playersTime % 60 : '0' + Math.floor(playersTime / 60) + ':' + playersTime % 60);
+
+        var miejsce = {
+          playersName: this.state.playersName,
+          playersResult: playersResult,
+          playersTime: playersTime
+        };
+
+        var recordArr = typeof localStorage['memoRecords'] != 'undefined' ? JSON.parse(localStorage.getItem('memoRecords')) : [{ playersName: 'Test', playersResult: '03:50', playersTime: 230 }];
+
+        var tabl = recordArr.sort(function (a, b) {
+          return a.playersTime - b.playersTime;
+        }).map(function (recordArr, index) {
+          return _react2.default.createElement(
+            'p',
+            { key: index },
+            index + 1,
+            _react2.default.createElement(
+              'span',
+              null,
+              '   ',
+              recordArr.playersName,
+              '  '
+            ),
+            _react2.default.createElement(
+              'span',
+              null,
+              recordArr.playersResult
+            )
+          );
+        });
+
+        recordArr.push(miejsce);
+
+        return _react2.default.createElement(
+          'div',
+          { className: 'fullScreen memoryTable' },
+          _react2.default.createElement(
+            'div',
+            { className: 'two_col' },
+            _react2.default.createElement(
+              'p',
+              null,
+              'Gratulacje!'
+            ),
+            _react2.default.createElement(
+              'h4',
+              null,
+              'Tw\xF3j wynik to ',
+              playersResult
+            ),
+            _react2.default.createElement(
+              'h3',
+              null,
+              recordArr.length < 5 ? _react2.default.createElement(
+                'form',
+                { onSubmit: function onSubmit(e) {
+                    return _this3.handleSubmit(e, recordArr);
+                  } },
+                _react2.default.createElement('input', {
+                  disabled: this.state.active,
+                  type: 'text',
+                  hidden: this.state.active,
+                  onChange: this.handleNameChange }),
+                _react2.default.createElement('input', {
+                  hidden: this.state.active, disabled: this.state.active, type: 'submit',
+                  value: 'Wpisz imi\u0119',
+                  className: 'btn2' })
+              ) : miejsce.playersTime < recordArr[recordArr.length - 2].playersTime ? recordArr.splice(recordArr.length - 2, 1) && _react2.default.createElement(
+                'form',
+                { onSubmit: function onSubmit(e) {
+                    return _this3.handleSubmit(e, recordArr);
+                  } },
+                _react2.default.createElement('input', {
+                  disabled: this.state.active,
+                  type: 'text',
+                  hidden: this.state.active,
+                  onChange: this.handleNameChange }),
+                _react2.default.createElement('input', {
+                  hidden: this.state.active, disabled: this.state.active, type: 'submit',
+                  value: 'Wpisz imi\u0119',
+                  className: 'btn2' })
+              ) : _react2.default.createElement(
+                'a',
+                null,
+                'oj s\u0142abiutko ;)'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'two_col' },
+            _react2.default.createElement(
+              'p',
+              null,
+              'Tablica wynik\xF3w'
+            ),
+            _react2.default.createElement(
+              'h4',
+              null,
+              ' ',
+              tabl,
+              ' '
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'bottom' },
+            _react2.default.createElement('input', { type: 'button', className: 'btn2', value: 'Jeszcze raz?',
+              onClick: function onClick() {
+                window.location.reload();
+              } })
+          )
+        );
+      } else if (this.state.level === 'easy') {
+
+        if (this.state.random) {
+          this.shuffle(_LevelEasy2.default);
+        }
+
+        items = _LevelEasy2.default.map(function (image) {
+
+          return _react2.default.createElement('input', { type: 'image', src: image.cover, disabled: image.disable,
+            onClick: function onClick(e) {
+              return _this3.handleClick(e, image);
+            }, className: 'memoryItem', key: image.pair });
+        });
+      } else if (this.state.level === 'hard') {
+
+        if (this.state.random) {
+          this.shuffle(_LevelHard2.default);
+        }
+
+        items = _LevelHard2.default.map(function (image) {
+
+          return _react2.default.createElement('input', { type: 'image', src: image.cover, disabled: image.disable,
+            onClick: function onClick(e) {
+              return _this3.handleClick(e, image);
+            }, className: 'memoryItem', key: image.pair });
+        });
+      }
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'container' },
+        _react2.default.createElement(
+          'header',
+          null,
+          'Mem.ry game'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'level' },
+          _react2.default.createElement('input', { type: 'button', className: 'btn1', value: 'easy', onClick: this.handleEasy }),
+          _react2.default.createElement('input', { type: 'button', className: 'btn1', value: 'hard', onClick: this.handleHard })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'memoryTable' },
+          items
+        )
+      );
+    }
+  }]);
+
+  return MemoryTable;
+}(_react2.default.Component);
+
+var App = function App() {
+  return _react2.default.createElement(MemoryTable, null);
+};
+
 document.addEventListener('DOMContentLoaded', function () {
-    var MemoryTable = function (_React$Component) {
-        _inherits(MemoryTable, _React$Component);
-
-        // kliknięcie w planszę
-        function MemoryTable(props) {
-            _classCallCheck(this, MemoryTable);
-
-            var _this = _possibleConstructorReturn(this, (MemoryTable.__proto__ || Object.getPrototypeOf(MemoryTable)).call(this, props));
-
-            _this.componentDidMount = function () {
-                _this.intervalId = setInterval(function () {
-
-                    if (_this.state.points > 8) {
-                        _this.setState(function (prevState) {
-                            return {
-                                timer: prevState.timer
-                            };
-                        });
-                    } else if (!_this.state.random) {
-                        _this.setState(function (prevState) {
-                            return {
-                                timer: prevState.timer + 1
-                            };
-                        });
-                    }
-                }, 1000);
-            };
-
-            _this.componentWillUnmount = function () {
-                clearInterval(_this.intervalId);
-            };
-
-            _this.shuffle = function (array) {
-                var currentIndex = array.length,
-                    temporaryValue = void 0,
-                    randomIndex = void 0;
-
-                // While there remain elements to shuffle...
-                while (0 !== currentIndex) {
-
-                    // Pick a remaining element...
-                    randomIndex = Math.floor(Math.random() * currentIndex);
-                    currentIndex -= 1;
-
-                    // And swap it with the current element.
-                    temporaryValue = array[currentIndex];
-                    array[currentIndex] = array[randomIndex];
-                    array[randomIndex] = temporaryValue;
-                }
-
-                array.forEach(function (playersChoice) {
-                    playersChoice.disable = false;
-                    playersChoice.cover = 'img/cover.png';
-                });
-
-                return array;
-            };
-
-            _this.handleClick = function (e, playersChoice) {
-                _this.setState({
-                    random: false,
-                    playersChoice: playersChoice,
-                    disable: playersChoice.disable
-                });
-
-                //gdy zaczynam pierwszą grę lub gdy przed chwilą odkryłem parę
-                if (_this.state.pair === "") {
-                    _this.setState({
-                        pair: playersChoice.pair
-                    });
-
-                    _this.setState(function (prevState) {
-                        return {
-                            prevPlayersChoice: prevState.playersChoice
-                        };
-                    });
-
-                    playersChoice.cover = playersChoice.image;
-                }
-
-                // jeśli drugie kliknięcie nie odkrywa tej samej planszy
-                else if (!(playersChoice.pair === 1 + _this.state.pair || playersChoice.pair === _this.state.pair.substr(1))) {
-
-                        playersChoice.cover = playersChoice.image;
-                        //biała kropka przyjmuje obraz elementu
-
-
-                        _this.handleRestart(playersChoice, _this.state.prevPlayersChoice);
-                        //     karty znowu stają się białe
-
-                    }
-
-                    // jeśli mój dugi wybór odkrwa parę
-                    else {
-
-                            _this.setState(function (prevState) {
-                                return {
-                                    points: prevState.points + 1,
-                                    prevPlayersChoice: prevState.playersChoice
-                                };
-                            });
-
-                            _this.setState({
-                                pair: '',
-                                playersChoice: playersChoice
-                            });
-
-                            playersChoice.cover = playersChoice.image;
-                            _this.state.prevPlayersChoice.disable = true;
-                            _this.state.cover = _this.state.image;
-                            playersChoice.disable = true;
-                        }
-            };
-
-            _this.handleRestart = function (playersChoice, prevPlayersChoice) {
-                setTimeout(function () {
-                    _this.setState({
-                        pair: '',
-                        playersChoice: '',
-                        image: '',
-                        cover: ''
-                    });
-                    playersChoice.cover = 'img/cover.png';
-                    prevPlayersChoice.cover = 'img/cover.png';
-                }, 200);
-            };
-
-            _this.handleEasy = function () {
-                _this.setState({
-                    level: 'easy',
-                    random: true
-                });
-            };
-
-            _this.handleHard = function () {
-                _this.setState({
-                    level: 'hard',
-                    random: true
-                });
-            };
-
-            _this.handleNameChange = function (event) {
-                _this.setState({
-                    playersName: event.target.value
-                });
-            };
-
-            _this.handleSubmit = function (e, arr) {
-                e.preventDefault();
-                _this.setState({
-                    active: true
-                });
-
-                localStorage.setItem("memoRecords", JSON.stringify(arr));
-            };
-
-            _this.state = {
-                points: 0,
-                cover: '',
-                random: true,
-                pair: '',
-                playersChoice: '',
-                prevPlayersChoice: '',
-                disable: false,
-                timer: 0,
-                level: 'easy',
-                playersName: '',
-                active: false
-            };
-            return _this;
-        }
-        // po nieudanej próbie plansze ponownie zmieniają się na kropkę
-
-        // mieszam plansze
-
-
-        _createClass(MemoryTable, [{
-            key: 'render',
-            value: function render() {
-                var _this2 = this;
-
-                var items = '';
-
-                if (this.state.points > 8) {
-                    var playersTime = this.state.timer;
-
-                    var playersResult = ' ' + (playersTime < 10 ? '00:0' + playersTime : playersTime < 60 ? '00:' + playersTime : playersTime % 60 < 10 ? '0' + Math.floor(playersTime / 60) + ':0' + playersTime % 60 : '0' + Math.floor(playersTime / 60) + ':' + playersTime % 60);
-
-                    var miejsce = {
-                        playersName: this.state.playersName,
-                        playersResult: playersResult,
-                        playersTime: playersTime
-                    };
-
-                    var recordArr = typeof localStorage['memoRecords'] != 'undefined' ? JSON.parse(localStorage.getItem('memoRecords')) : [{ playersName: 'Test', playersResult: '03:50', playersTime: 230 }];
-
-                    var tabl = recordArr.sort(function (a, b) {
-                        return a.playersTime - b.playersTime;
-                    }).map(function (recordArr, index) {
-                        return _react2.default.createElement(
-                            'p',
-                            { key: index },
-                            index + 1,
-                            _react2.default.createElement(
-                                'span',
-                                null,
-                                '   ',
-                                recordArr.playersName,
-                                '  '
-                            ),
-                            _react2.default.createElement(
-                                'span',
-                                null,
-                                recordArr.playersResult
-                            )
-                        );
-                    });
-
-                    recordArr.push(miejsce);
-
-                    return _react2.default.createElement(
-                        'div',
-                        { className: 'fullScreen memoryTable' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'two_col' },
-                            _react2.default.createElement(
-                                'p',
-                                null,
-                                'Gratulacje!'
-                            ),
-                            _react2.default.createElement(
-                                'h4',
-                                null,
-                                'Tw\xF3j wynik to ',
-                                playersResult
-                            ),
-                            _react2.default.createElement(
-                                'h3',
-                                null,
-                                recordArr.length < 5 ? _react2.default.createElement(
-                                    'form',
-                                    { onSubmit: function onSubmit(e) {
-                                            return _this2.handleSubmit(e, recordArr);
-                                        } },
-                                    _react2.default.createElement('input', {
-                                        disabled: this.state.active,
-                                        type: 'text',
-                                        hidden: this.state.active,
-                                        onChange: this.handleNameChange }),
-                                    _react2.default.createElement('input', {
-                                        hidden: this.state.active, disabled: this.state.active, type: 'submit',
-                                        value: 'Wpisz imi\u0119',
-                                        className: 'btn2' })
-                                ) : miejsce.playersTime < recordArr[recordArr.length - 2].playersTime ? recordArr.splice(recordArr.length - 2, 1) && _react2.default.createElement(
-                                    'form',
-                                    { onSubmit: function onSubmit(e) {
-                                            return _this2.handleSubmit(e, recordArr);
-                                        } },
-                                    _react2.default.createElement('input', {
-                                        disabled: this.state.active,
-                                        type: 'text',
-                                        hidden: this.state.active,
-                                        onChange: this.handleNameChange }),
-                                    _react2.default.createElement('input', {
-                                        hidden: this.state.active, disabled: this.state.active, type: 'submit',
-                                        value: 'Wpisz imi\u0119',
-                                        className: 'btn2' })
-                                ) : _react2.default.createElement(
-                                    'a',
-                                    null,
-                                    'oj s\u0142abiutko ;)'
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'two_col' },
-                            _react2.default.createElement(
-                                'p',
-                                null,
-                                'Tablica wynik\xF3w'
-                            ),
-                            _react2.default.createElement(
-                                'h4',
-                                null,
-                                ' ',
-                                tabl,
-                                ' '
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'bottom' },
-                            _react2.default.createElement('input', { type: 'button', className: 'btn2', value: 'Jeszcze raz?',
-                                onClick: function onClick() {
-                                    window.location.reload();
-                                } })
-                        )
-                    );
-                } else if (this.state.level === 'easy') {
-
-                    if (this.state.random) {
-                        this.shuffle(_easy2.default);
-                    }
-
-                    items = _easy2.default.map(function (image) {
-
-                        return _react2.default.createElement('input', { type: 'image', src: image.cover, disabled: image.disable,
-                            onClick: function onClick(e) {
-                                return _this2.handleClick(e, image);
-                            }, className: 'memoryItem', key: image.pair });
-                    });
-                } else if (this.state.level === 'hard') {
-
-                    if (this.state.random) {
-                        this.shuffle(_hard2.default);
-                    }
-
-                    items = _hard2.default.map(function (image) {
-
-                        return _react2.default.createElement('input', { type: 'image', src: image.cover, disabled: image.disable,
-                            onClick: function onClick(e) {
-                                return _this2.handleClick(e, image);
-                            }, className: 'memoryItem', key: image.pair });
-                    });
-                }
-
-                return _react2.default.createElement(
-                    'div',
-                    { className: 'container' },
-                    _react2.default.createElement(
-                        'header',
-                        null,
-                        'Mem.ry game'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'level' },
-                        _react2.default.createElement('input', { type: 'button', className: 'btn1', value: '\u0142atwa', onClick: this.handleEasy }),
-                        _react2.default.createElement('input', { type: 'button', className: 'btn1', value: 'trudna', onClick: this.handleHard })
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'memoryTable' },
-                        items
-                    )
-                );
-            }
-        }]);
-
-        return MemoryTable;
-    }(_react2.default.Component);
-
-    var App = function (_React$Component2) {
-        _inherits(App, _React$Component2);
-
-        function App() {
-            _classCallCheck(this, App);
-
-            return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
-        }
-
-        _createClass(App, [{
-            key: 'render',
-            value: function render() {
-                return _react2.default.createElement(MemoryTable, null);
-            }
-        }]);
-
-        return App;
-    }(_react2.default.Component);
-
-    _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));
+  _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));
 });
 
 /***/ }),
@@ -22526,117 +22512,116 @@ module.exports = ReactDOMInvalidARIAHook;
 /* 184 */
 /***/ (function(module, exports) {
 
-
 module.exports = [
-    {
-        image: 'img/animal1.png',
-        cover: 'img/cover.png',
-        pair: 'one',
-        disable: false
+  {
+    image: 'img/animal1.png',
+    cover: 'img/cover.png',
+    pair: 'one',
+    disable: false
 
-    },
-    {
-        image: 'img/animal1.png',
-        cover: 'img/cover.png',
-        pair: '1one',
-        disable: false
-    },
-    {
-        image: 'img/animal2.png',
-        cover: 'img/cover.png',
-        pair: 'two',
-        disable: false
-    },
-    {
-        image: 'img/animal2.png',
-        cover: 'img/cover.png',
-        pair: '1two',
-        disable: false
-    },
-    {
-        image: 'img/animal3.png',
-        cover: 'img/cover.png',
-        pair: 'three',
-        disable: false
-    },
-    {
-        image: 'img/animal3.png',
-        cover: 'img/cover.png',
-        pair: '1three',
-        disable: false
-    },
-    {
-        image: 'img/animal4.png',
-        cover: 'img/cover.png',
-        pair: 'four',
-        disable: false
-    },
-    {
-        image: 'img/animal4.png',
-        cover: 'img/cover.png',
-        pair: '1four',
-        disable: false
-    },
-    {
-        image: 'img/animal5.png',
-        cover: 'img/cover.png',
-        pair: 'five',
-        disable: false
-    },
-    {
-        image: 'img/animal5.png',
-        cover: 'img/cover.png',
-        pair: '1five',
-        disable: false
-    },
-    {
-        image: 'img/animal6.png',
-        cover: 'img/cover.png',
-        pair: 'six',
-        disable: false
-    },
-    {
-        image: 'img/animal6.png',
-        cover: 'img/cover.png',
-        pair: '1six',
-        disable: false
-    },
-    {
-        image: 'img/animal7.png',
-        cover: 'img/cover.png',
-        pair: 'seven',
-        disable: false
-    },
-    {
-        image: 'img/animal7.png',
-        cover: 'img/cover.png',
-        pair: '1seven',
-        disable: false
-    },
-    {
-        image: 'img/animal8.png',
-        cover: 'img/cover.png',
-        pair: 'eight',
-        disable: false
-    },
-    {
-        image: 'img/animal8.png',
-        cover: 'img/cover.png',
-        pair: '1eight',
-        disable: false
-    },
-    {
-        image: 'img/animal9.png',
-        cover: 'img/cover.png',
-        pair: 'nine',
-        disable: false
-    },
-    {
-        image: 'img/animal9.png',
-        cover: 'img/cover.png',
-        pair: '1nine',
-        disable: false
-    }
+  },
+  {
+    image: 'img/animal1.png',
+    cover: 'img/cover.png',
+    pair: '1one',
+    disable: false
+  },
+  {
+    image: 'img/animal2.png',
+    cover: 'img/cover.png',
+    pair: 'two',
+    disable: false
+  },
+  {
+    image: 'img/animal2.png',
+    cover: 'img/cover.png',
+    pair: '1two',
+    disable: false
+  },
+  {
+    image: 'img/animal3.png',
+    cover: 'img/cover.png',
+    pair: 'three',
+    disable: false
+  },
+  {
+    image: 'img/animal3.png',
+    cover: 'img/cover.png',
+    pair: '1three',
+    disable: false
+  },
+  {
+    image: 'img/animal4.png',
+    cover: 'img/cover.png',
+    pair: 'four',
+    disable: false
+  },
+  {
+    image: 'img/animal4.png',
+    cover: 'img/cover.png',
+    pair: '1four',
+    disable: false
+  },
+  {
+    image: 'img/animal5.png',
+    cover: 'img/cover.png',
+    pair: 'five',
+    disable: false
+  },
+  {
+    image: 'img/animal5.png',
+    cover: 'img/cover.png',
+    pair: '1five',
+    disable: false
+  },
+  {
+    image: 'img/animal6.png',
+    cover: 'img/cover.png',
+    pair: 'six',
+    disable: false
+  },
+  {
+    image: 'img/animal6.png',
+    cover: 'img/cover.png',
+    pair: '1six',
+    disable: false
+  },
+  {
+    image: 'img/animal7.png',
+    cover: 'img/cover.png',
+    pair: 'seven',
+    disable: false
+  },
+  {
+    image: 'img/animal7.png',
+    cover: 'img/cover.png',
+    pair: '1seven',
+    disable: false
+  },
+  {
+    image: 'img/animal8.png',
+    cover: 'img/cover.png',
+    pair: 'eight',
+    disable: false
+  },
+  {
+    image: 'img/animal8.png',
+    cover: 'img/cover.png',
+    pair: '1eight',
+    disable: false
+  },
+  {
+    image: 'img/animal9.png',
+    cover: 'img/cover.png',
+    pair: 'nine',
+    disable: false
+  },
+  {
+    image: 'img/animal9.png',
+    cover: 'img/cover.png',
+    pair: '1nine',
+    disable: false
+  }
 ];
 
 
@@ -22644,118 +22629,118 @@ module.exports = [
 /* 185 */
 /***/ (function(module, exports) {
 
-
 module.exports = [
-    {
-        image: 'img/cloud1.png',
-        cover: 'img/cover.png',
-        pair: 'one',
-        disable: false
+  {
+    image: 'img/cloud1.png',
+    cover: 'img/cover.png',
+    pair: 'one',
+    disable: false
 
-    },
-    {
-        image: 'img/cloud1.png',
-        cover: 'img/cover.png',
-        pair: '1one',
-        disable: false
-    },
-    {
-        image: 'img/cloud2.png',
-        cover: 'img/cover.png',
-        pair: 'two',
-        disable: false
-    },
-    {
-        image: 'img/cloud2.png',
-        cover: 'img/cover.png',
-        pair: '1two',
-        disable: false
-    },
-    {
-        image: 'img/cloud3.png',
-        cover: 'img/cover.png',
-        pair: 'three',
-        disable: false
-    },
-    {
-        image: 'img/cloud3.png',
-        cover: 'img/cover.png',
-        pair: '1three',
-        disable: false
-    },
-    {
-        image: 'img/cloud4.png',
-        cover: 'img/cover.png',
-        pair: 'four',
-        disable: false
-    },
-    {
-        image: 'img/cloud4.png',
-        cover: 'img/cover.png',
-        pair: '1four',
-        disable: false
-    },
-    {
-        image: 'img/cloud5.png',
-        cover: 'img/cover.png',
-        pair: 'five',
-        disable: false
-    },
-    {
-        image: 'img/cloud5.png',
-        cover: 'img/cover.png',
-        pair: '1five',
-        disable: false
-    },
-    {
-        image: 'img/cloud6.png',
-        cover: 'img/cover.png',
-        pair: 'six',
-        disable: false
-    },
-    {
-        image: 'img/cloud6.png',
-        cover: 'img/cover.png',
-        pair: '1six',
-        disable: false
-    },
-    {
-        image: 'img/cloud7.png',
-        cover: 'img/cover.png',
-        pair: 'seven',
-        disable: false
-    },
-    {
-        image: 'img/cloud7.png',
-        cover: 'img/cover.png',
-        pair: '1seven',
-        disable: false
-    },
-    {
-        image: 'img/cloud8.png',
-        cover: 'img/cover.png',
-        pair: 'eight',
-        disable: false
-    },
-    {
-        image: 'img/cloud8.png',
-        cover: 'img/cover.png',
-        pair: '1eight',
-        disable: false
-    },
-    {
-        image: 'img/cloud9.png',
-        cover: 'img/cover.png',
-        pair: 'nine',
-        disable: false
-    },
-    {
-        image: 'img/cloud9.png',
-        cover: 'img/cover.png',
-        pair: '1nine',
-        disable: false
-    }
+  },
+  {
+    image: 'img/cloud1.png',
+    cover: 'img/cover.png',
+    pair: '1one',
+    disable: false
+  },
+  {
+    image: 'img/cloud2.png',
+    cover: 'img/cover.png',
+    pair: 'two',
+    disable: false
+  },
+  {
+    image: 'img/cloud2.png',
+    cover: 'img/cover.png',
+    pair: '1two',
+    disable: false
+  },
+  {
+    image: 'img/cloud3.png',
+    cover: 'img/cover.png',
+    pair: 'three',
+    disable: false
+  },
+  {
+    image: 'img/cloud3.png',
+    cover: 'img/cover.png',
+    pair: '1three',
+    disable: false
+  },
+  {
+    image: 'img/cloud4.png',
+    cover: 'img/cover.png',
+    pair: 'four',
+    disable: false
+  },
+  {
+    image: 'img/cloud4.png',
+    cover: 'img/cover.png',
+    pair: '1four',
+    disable: false
+  },
+  {
+    image: 'img/cloud5.png',
+    cover: 'img/cover.png',
+    pair: 'five',
+    disable: false
+  },
+  {
+    image: 'img/cloud5.png',
+    cover: 'img/cover.png',
+    pair: '1five',
+    disable: false
+  },
+  {
+    image: 'img/cloud6.png',
+    cover: 'img/cover.png',
+    pair: 'six',
+    disable: false
+  },
+  {
+    image: 'img/cloud6.png',
+    cover: 'img/cover.png',
+    pair: '1six',
+    disable: false
+  },
+  {
+    image: 'img/cloud7.png',
+    cover: 'img/cover.png',
+    pair: 'seven',
+    disable: false
+  },
+  {
+    image: 'img/cloud7.png',
+    cover: 'img/cover.png',
+    pair: '1seven',
+    disable: false
+  },
+  {
+    image: 'img/cloud8.png',
+    cover: 'img/cover.png',
+    pair: 'eight',
+    disable: false
+  },
+  {
+    image: 'img/cloud8.png',
+    cover: 'img/cover.png',
+    pair: '1eight',
+    disable: false
+  },
+  {
+    image: 'img/cloud9.png',
+    cover: 'img/cover.png',
+    pair: 'nine',
+    disable: false
+  },
+  {
+    image: 'img/cloud9.png',
+    cover: 'img/cover.png',
+    pair: '1nine',
+    disable: false
+  }
 ];
+
 
 /***/ })
 /******/ ]);

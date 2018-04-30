@@ -1,21 +1,35 @@
 {
-  "name": "1_przygotowanie_react",
+  "name": "memory_game",
   "version": "1.0.0",
-  "description": "## Zadanie rozwiązywane z wykładowcą",
+  "description": "Memory Game React App",
+  "homepage": "https://bajako.github.io/memory-game-react",
+  "bugs": {
+    "url": "https://github.com/bajako/memory-game-react/issues",
+    "email": "ba.jakoniuk@gmail.com"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Bartek Jakoniuk",
+    "email": "ba.jakoniuk@gmail.com",
+    "url": "https://github.com/bajako"
+  },
   "main": "webpack.config.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bajako/memory-game-react.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "react": "^15.4.0",
-    "react-dom": "^15.4.0"
+    "react-dom": "^15.4.0",
+    "webpack": "^3.11.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1"
   }

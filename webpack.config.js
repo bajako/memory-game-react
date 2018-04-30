@@ -1,13 +1,19 @@
-module.exports	=	{
-    entry:	"./js/memo.jsx",
-    output:	{	filename:	"./js/out.js"	},
-    watch:	true,
-    module:	{
-        loaders:	[	{
-            test:	/\.jsx$/,		exclude:	/node_modules/,
-            loader:	'babel-loader',
-            query:	{	presets:	['es2015', 'stage-2', 'react']	}
+module.exports = {
+  entry: './js/Memo.jsx',
+  output: {
+    filename: './js/out.js'
+  },
+  watch: true,
+  module: {
+    loaders: [
+      {
+        test: /\.jsx$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: ['env', 'stage-2', 'react']
         }
-        ]
-    }
-}
+      }]
+  }
+};
+
