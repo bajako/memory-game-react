@@ -9873,12 +9873,6 @@ var _reactDom = __webpack_require__(101);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Cards = __webpack_require__(187);
-
-var _Hard = __webpack_require__(189);
-
-var _Easy = __webpack_require__(190);
-
 var _LevelEasy = __webpack_require__(82);
 
 var _LevelEasy2 = _interopRequireDefault(_LevelEasy);
@@ -9888,6 +9882,14 @@ var _LevelHard = __webpack_require__(83);
 var _LevelHard2 = _interopRequireDefault(_LevelHard);
 
 var _Shuffle = __webpack_require__(84);
+
+var _Cards = __webpack_require__(187);
+
+var _Hard = __webpack_require__(189);
+
+var _Easy = __webpack_require__(190);
+
+var _Time = __webpack_require__(193);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9906,17 +9908,31 @@ var MemoryTable = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (MemoryTable.__proto__ || Object.getPrototypeOf(MemoryTable)).call(this, props));
 
     _this.handleSwitchToLevelHard = function () {
-      _this.setState({ level: false });
+      _this.setState({ level: false, startTimer: false, points: 0 });
       (0, _Shuffle.shuffle)(_LevelHard2.default);
     };
 
     _this.handleSwitchToLevelEasy = function () {
-      _this.setState({ level: true });
+      _this.setState({ level: true, startTimer: false, points: 0 });
       (0, _Shuffle.shuffle)(_LevelEasy2.default);
     };
 
+    _this.myCallbackPoints = function (pointsInfo) {
+      _this.setState({
+        points: pointsInfo + 1
+      });
+    };
+
+    _this.myCallbackClick = function () {
+      _this.setState({
+        startTimer: true
+      });
+    };
+
     _this.state = {
-      level: true
+      level: true,
+      points: null,
+      startTimer: false
     };
     return _this;
   }
@@ -9938,17 +9954,9 @@ var MemoryTable = function (_React$Component) {
           null,
           'Mem.ry game'
         ),
-        _react2.default.createElement(
-          'h1',
-          null,
-          this.state.level
-        ),
-        _react2.default.createElement(
-          'h2',
-          null,
-          difficulty
-        ),
-        _react2.default.createElement(_Cards.Cards, { difficultyLevel: this.state.level })
+        difficulty,
+        _react2.default.createElement(_Time.Time, { points: this.state.points, startTimer: this.state.startTimer }),
+        _react2.default.createElement(_Cards.Cards, { difficultyLevel: this.state.level, callbackFromParentPoints: this.myCallbackPoints, callbackFromParentClick: this.myCallbackClick, points: this.state.points })
       );
     }
   }]);
@@ -22501,8 +22509,6 @@ var _react = __webpack_require__(20);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _GameBoard = __webpack_require__(188);
-
 var _LevelEasy = __webpack_require__(82);
 
 var _LevelEasy2 = _interopRequireDefault(_LevelEasy);
@@ -22512,6 +22518,8 @@ var _LevelHard = __webpack_require__(83);
 var _LevelHard2 = _interopRequireDefault(_LevelHard);
 
 var _Shuffle = __webpack_require__(84);
+
+var _GameBoard = __webpack_require__(188);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22529,20 +22537,23 @@ var Cards = exports.Cards = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Cards.__proto__ || Object.getPrototypeOf(Cards)).call(this, props));
 
-    _this.myCallback = function (playersChoice) {
-      console.log(playersChoice);
+    _this.myCallbackChoice = function (playersChoice) {
       _this.setState({
         playersChoice: playersChoice
       });
+      // Timer starts with first click of every new game
+      if (!_this.state.start) {
+        _this.setState({
+          start: true });
+      }
       // When start first game, or just found a pair
+      _this.someFnClick();
       if (_this.state.pair === '') {
         _this.setState({
-          pair: playersChoice.pair
-        });
+          pair: playersChoice.pair });
         _this.setState(function (prevState) {
           return {
-            prevPlayersChoice: prevState.playersChoice
-          };
+            prevPlayersChoice: prevState.playersChoice };
         });
         // Picked 'dot' shows the image behind itself
         playersChoice.cover = playersChoice.image;
@@ -22552,12 +22563,18 @@ var Cards = exports.Cards = function (_React$Component) {
           playersChoice.cover = playersChoice.image;
           // Both images disappear
           _this.handleRestart(playersChoice, _this.state.prevPlayersChoice);
+          // If this is a new game, player starts with 0 points
+          if (_this.props.points === 0) {
+            _this.setState({
+              points: 0
+            });
+          }
         }
         // When the second choice reveals the same image
         else {
             _this.setState(function (prevState) {
               return {
-                // points: prevState.points +1,
+                points: prevState.points + 1,
                 prevPlayersChoice: prevState.playersChoice
               };
             });
@@ -22565,6 +22582,7 @@ var Cards = exports.Cards = function (_React$Component) {
               pair: '',
               playersChoice: playersChoice
             });
+            _this.someFnPoints();
             _this.state.cover = _this.state.image;
             playersChoice.cover = playersChoice.image;
             _this.state.prevPlayersChoice.disable = true;
@@ -22585,10 +22603,20 @@ var Cards = exports.Cards = function (_React$Component) {
       }, 200);
     };
 
+    _this.someFnPoints = function () {
+      var pointsInfo = _this.state.points;
+      _this.props.callbackFromParentPoints(pointsInfo);
+    };
+
+    _this.someFnClick = function () {
+      _this.props.callbackFromParentClick();
+    };
+
     _this.state = {
       playersChoice: '',
       disable: false,
       pair: '',
+      points: 0,
       prevPlayersChoice: ''
     };
     (0, _Shuffle.shuffle)(_LevelEasy2.default);
@@ -22603,11 +22631,11 @@ var Cards = exports.Cards = function (_React$Component) {
       var gameBoardElements = void 0;
       if (this.props.difficultyLevel) {
         gameBoardElements = _LevelEasy2.default.map(function (card) {
-          return _react2.default.createElement(_GameBoard.GameBoard, { card: card, callbackFromParent: _this2.myCallback });
+          return _react2.default.createElement(_GameBoard.GameBoard, { card: card, callbackFromParentChoice: _this2.myCallbackChoice });
         });
       } else {
         gameBoardElements = _LevelHard2.default.map(function (card) {
-          return _react2.default.createElement(_GameBoard.GameBoard, { card: card, callbackFromParent: _this2.myCallback });
+          return _react2.default.createElement(_GameBoard.GameBoard, { card: card, callbackFromParentChoice: _this2.myCallbackChoice });
         });
       }
       return _react2.default.createElement(
@@ -22655,9 +22683,9 @@ var GameBoard = exports.GameBoard = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (GameBoard.__proto__ || Object.getPrototypeOf(GameBoard)).call(this, props));
 
-    _this.someFn = function () {
+    _this.someFnChoice = function () {
       var cardInfo = _this.props.card;
-      _this.props.callbackFromParent(cardInfo);
+      _this.props.callbackFromParentChoice(cardInfo);
     };
 
     return _this;
@@ -22666,7 +22694,7 @@ var GameBoard = exports.GameBoard = function (_React$Component) {
   _createClass(GameBoard, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('input', { type: 'image', src: this.props.card.cover, disabled: this.props.card.disable, className: 'memoryItem', key: this.props.card.pair, onClick: this.someFn });
+      return _react2.default.createElement('input', { type: 'image', src: this.props.card.cover, disabled: this.props.card.disable, className: 'memoryItem', key: this.props.card.pair, onClick: this.someFnChoice });
     }
   }]);
 
@@ -22709,12 +22737,12 @@ var Hard = exports.Hard = function (_React$Component) {
   }
 
   _createClass(Hard, [{
-    key: "render",
+    key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        "button",
+        'button',
         { onClick: this.props.onClick },
-        "Easy"
+        'Easy'
       );
     }
   }]);
@@ -22758,17 +22786,101 @@ var Easy = exports.Easy = function (_React$Component) {
   }
 
   _createClass(Easy, [{
-    key: "render",
+    key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        "button",
+        'button',
         { onClick: this.props.onClick },
-        "Hard"
+        'Hard'
       );
     }
   }]);
 
   return Easy;
+}(_react2.default.Component);
+
+/***/ }),
+/* 191 */,
+/* 192 */,
+/* 193 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Time = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(20);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Time = exports.Time = function (_React$Component) {
+  _inherits(Time, _React$Component);
+
+  function Time(props) {
+    _classCallCheck(this, Time);
+
+    var _this = _possibleConstructorReturn(this, (Time.__proto__ || Object.getPrototypeOf(Time)).call(this, props));
+
+    _this.state = {
+      timer: 0
+    };
+    return _this;
+  }
+
+  _createClass(Time, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.tick = function () {
+        if (_this2.props.points > 2) {
+          _this2.setState(function (prevState) {
+            return {
+              timer: prevState.timer
+            };
+          });
+        } else if (!_this2.props.startTimer) {
+          _this2.setState({
+            timer: 0
+          });
+        } else if (_this2.props.startTimer) {
+          _this2.setState(function (prevState) {
+            return {
+              timer: prevState.timer + 1
+            };
+          });
+        }
+        _this2.intervalId = setTimeout(_this2.tick, 1000);
+      };
+      this.intervalId = setTimeout(this.tick, 1000);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var timeRecord = this.state.timer;
+      return _react2.default.createElement(
+        'div',
+        null,
+        timeRecord
+      );
+    }
+  }]);
+
+  return Time;
 }(_react2.default.Component);
 
 /***/ })
