@@ -5,7 +5,7 @@ export class GameBoard extends React.Component {
     super(props);
   };
   someFnChoice = () => {
-    let cardInfo = this.props.card;
+    const cardInfo = this.props.card;
     this.props.callbackFromParentChoice(cardInfo);
   };
   render(){

@@ -78,7 +78,7 @@ export class Cards extends React.Component {
     }, 200)
   };
   someFnPoints = () => {
-    let pointsInfo = this.state.points;
+    const pointsInfo = this.state.points;
     this.props.callbackFromParentPoints(pointsInfo);
   };
   someFnClick = () => {
@@ -99,7 +99,7 @@ export class Cards extends React.Component {
         })
     }
     return (
-      <div>
+      <div className='memoryBoard'>
         {gameBoardElements}
       </div>
     )

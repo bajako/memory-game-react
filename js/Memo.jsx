@@ -7,6 +7,7 @@ import {Cards} from './Cards.jsx';
 import {Hard} from './Hard.jsx';
 import {Easy} from './Easy.jsx';
 import {Time} from './Time.jsx';
+import {Records} from './Records.jsx';
 
 class MemoryTable extends React.Component {
   constructor(props) {
@@ -15,6 +16,8 @@ class MemoryTable extends React.Component {
       level: true,
       points:null,
       startTimer: false,
+      timer:null,
+      maxPoints: 1
   }
   };
   handleSwitchToLevelHard	=	() =>	{
@@ -35,6 +38,11 @@ class MemoryTable extends React.Component {
       startTimer: true
     });
   };
+  myCallbackTimer = (timerInfo) => {
+    this.setState({
+      timer: timerInfo
+    })
+  };
   render() {
     let difficulty;
     if (this.state.level) {
@@ -43,11 +51,14 @@ class MemoryTable extends React.Component {
     	else {
       difficulty	=	<Hard	onClick={this.handleSwitchToLevelEasy} />
     }
+    if (this.state.points > this.state.maxPoints){
+    return <Records points={this.state.points} timer={this.state.timer}/>
+    }
     return(
       <div className='container'>
         <header>Mem.ry game</header>
         {difficulty}
-        <Time points={this.state.points} startTimer={this.state.startTimer}/>
+        <Time points={this.state.points} startTimer={this.state.startTimer} maxPoints={this.state.maxPoints} callbackFromParentTimer={this.myCallbackTimer}/>
         <Cards difficultyLevel={this.state.level} callbackFromParentPoints={this.myCallbackPoints} callbackFromParentClick={this.myCallbackClick} points={this.state.points}/>
       </div>
     )

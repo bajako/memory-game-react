@@ -95,17 +95,5 @@ module.exports = [
     cover: 'img/cover.png',
     pair: '1eight',
     disable: false
-  },
-  {
-    image: 'img/animal9.png',
-    cover: 'img/cover.png',
-    pair: 'nine',
-    disable: false
-  },
-  {
-    image: 'img/animal9.png',
-    cover: 'img/cover.png',
-    pair: '1nine',
-    disable: false
   }
 ];

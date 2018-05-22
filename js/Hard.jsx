@@ -5,7 +5,7 @@ export class Hard extends React.Component {
     super(props);
   }
   render(){
-    return <button onClick={this.props.onClick}>
+    return <button onClick={this.props.onClick} className='btn1'>
       Easy
     </button>
   }

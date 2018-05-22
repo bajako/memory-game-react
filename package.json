@@ -19,6 +19,7 @@
     "url": "https://github.com/bajako/memory-game-react.git"
   },
   "scripts": {
+    "start:dev": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

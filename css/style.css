@@ -2,95 +2,187 @@ body {
     margin: 0;
     font-family: 'Dosis', sans-serif;
 }
-
-header{
-    font-size: 50px;
+header {
     width: 100%;
     text-align: center;
-    margin-top: 30px;
     font-weight: bold;
 }
-
 input {
     outline: none;
 }
-
-.bottom{
+.bottom {
     width: 100%;
     height: 50px;
     text-align: center;
     align-self: flex-end;
 }
-
 .btn1 {
-    font-size: 30px;
     background-color: white;
     color: black;
     border: none;
     border-radius: 10px;
+    margin: 20px;
 }
-
 .btn1:hover {
     background-color: lightskyblue;
     color: white;
 }
-
 .btn2 {
     font-size: 15px;
     background-color: lightskyblue;
     color: black;
     border: 1px solid deepskyblue ;
     border-radius: 10px;
-    width: 100px;
     height: 30px;
     margin-top: 10px;
     margin-left: 5px;
 }
-
 .btn2:hover {
     background-color: white;
     color: lightskyblue;
 }
-
+.column {
+    margin-top: 50px;
+    width: 50%;
+    text-align: center;
+}
 .container {
-    display: flex;
+    display: grid;
     flex-wrap: wrap;
     justify-content: center;
     background-color: white;
     margin: 0 auto;
-    width: 900px;
+    max-width: 100%;
 }
-
-.fullScreen {
-    position: fixed;
-    width: 50%;
-    height: 50%;
-    left: 25%;
-    top: 25%;
-    z-index: 1;
-    background:lightskyblue;
+.invisible {
+    display: none;
 }
-
-.level{
-    margin-top: 30px;
-}
-
 .memoryItem {
-    width: 120px;
-    height: 120px;
-    margin: 10px;
-
+    max-width: 120px;
+    max-height: 120px;
+    justify-self: center;
 }
-
-.memoryTable {
-    display: flex;
+.memoryBoard {
     flex-wrap: wrap;
-    width: 1000px;
-    justify-content: center;
-    background-color: white;
+    justify-content: space-around;
 }
 
-.two_col {
-    width: 50%;
-    text-align: center;
+@media all and (min-width: 981px) {
+    div.container {
+        grid-template-columns: 1fr;
+        display: grid;
+        max-width: 980px;
+    }
+    header {
+        font-size: 300%;
+        grid-column: 1/2;
+        grid-row: 1/2;
+        align-self: center;
+        margin-bottom: 7px;
+        margin-top: 5%;
+    }
+    button.btn1 {
+        font-size: 200%;
+        grid-column: 1/2;
+        grid-row: 2/3;
+    }
+    div.memoryBoard {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-column: 1/5;
+        display: grid;
+    }
+}
+
+@media all and (max-width: 980px) {
+    div.container {
+        grid-template-columns: 1fr;
+    }
+    header {
+        font-size: 300%;
+        grid-column: 1/2;
+        grid-row: 1/2;
+        align-self: center;
+        margin-bottom: 7px;
+        margin-top: 5%;
+    }
+    button.btn1 {
+        font-size: 200%;
+        grid-column: 1/2;
+        grid-row: 2/3;
+    }
+    div.memoryBoard {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-column: 1/5;
+        display: grid;
+    }
+    input.memoryItem{
+        margin: 5px;
+    }
+}
+
+@media all and (orientation: landscape) and (max-width: 980px){
+    div.container {
+        grid-template-columns: 1fr;
+        display: grid;
+    }
+    header {
+        font-size: 300%;
+        grid-column: 1/2;
+        grid-row: 1/2;
+        align-self: center;
+        margin-bottom: 7px;
+    }
+    button.btn1 {
+        font-size: 200%;
+        grid-column: 1/2;
+    }
+    div.memoryBoard {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-column: 1/5;
+        display: grid;
+    }
+    input.memoryItem{
+        max-width: 120px;
+        max-height: 120px;
+        justify-self: center;
+        margin: 5px;
+    }
+}
+
+@media all and (max-width: 736px) {
+    input.memoryItem{
+        max-width: 90px;
+        max-height: 90px;
+    }
+}
+
+@media all and (orientation: landscape) and (max-width: 736px){
+    div.container {
+        grid-template-columns: 1fr 1fr;
+    }
+    header {
+        font-size: 200%;
+        margin-bottom: 15px;
+    }
+    button.btn1 {
+        grid-column: 2/3;
+        grid-row: 1/2;
+    }
+    input.memoryItem{
+        max-width: 60px;
+        max-height: 60px;
+    }
+}
+
+@media all and (max-width: 480px) {
+    header {
+        margin-left: 5px;
+    }
+    button.btn1 {
+        font-size: 150%;
+    }
+    input.memoryItem{
+        max-width: 70px;
+        max-height: 70px;
+    }
 }
