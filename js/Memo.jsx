@@ -17,7 +17,7 @@ class MemoryTable extends React.Component {
       points:null,
       startTimer: false,
       timer:null,
-      maxPoints: 1
+      maxPoints: 7
   }
   };
   handleSwitchToLevelHard	=	() =>	{
@@ -56,7 +56,7 @@ class MemoryTable extends React.Component {
     }
     return(
       <div className='container'>
-        <header>Mem.ry game</header>
+        <header className='headerOne'>Mem.ry game</header>
         {difficulty}
         <Time points={this.state.points} startTimer={this.state.startTimer} maxPoints={this.state.maxPoints} callbackFromParentTimer={this.myCallbackTimer}/>
         <Cards difficultyLevel={this.state.level} callbackFromParentPoints={this.myCallbackPoints} callbackFromParentClick={this.myCallbackClick} points={this.state.points}/>

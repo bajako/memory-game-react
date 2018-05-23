@@ -9916,7 +9916,7 @@ var MemoryTable = function (_React$Component) {
       points: null,
       startTimer: false,
       timer: null,
-      maxPoints: 1
+      maxPoints: 7
     };
     return _this;
   }
@@ -9938,7 +9938,7 @@ var MemoryTable = function (_React$Component) {
         { className: 'container' },
         _react2.default.createElement(
           'header',
-          null,
+          { className: 'headerOne' },
           'Mem.ry game'
         ),
         difficulty,
@@ -22916,9 +22916,11 @@ var Records = exports.Records = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Records.__proto__ || Object.getPrototypeOf(Records)).call(this, props));
 
     _this.handleNameChange = function (event) {
-      _this.setState({
-        playersName: event.target.value
-      });
+      if (event.target.value.length < 11) {
+        _this.setState({
+          playersName: event.target.value
+        });
+      }
     };
 
     _this.handleSubmit = function (e, arr) {
@@ -22960,7 +22962,7 @@ var Records = exports.Records = function (_React$Component) {
             null,
             '   ',
             recordArr.playersName,
-            '  '
+            '   '
           ),
           _react2.default.createElement(
             'span',
@@ -22973,15 +22975,15 @@ var Records = exports.Records = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'container' },
+        { className: 'congratulations' },
         _react2.default.createElement(
           'header',
-          null,
+          { className: 'headerTwo' },
           'Congratulations!'
         ),
         _react2.default.createElement(
           'div',
-          { className: 'column' },
+          { className: 'wellDone' },
           _react2.default.createElement(
             'h1',
             null,
@@ -23006,6 +23008,7 @@ var Records = exports.Records = function (_React$Component) {
               _react2.default.createElement('input', {
                 disabled: this.state.active,
                 type: 'text',
+                placeholder: ' maximum 10 letters',
                 hidden: this.state.active,
                 onChange: this.handleNameChange }),
               _react2.default.createElement('input', {
@@ -23020,6 +23023,7 @@ var Records = exports.Records = function (_React$Component) {
               _react2.default.createElement('input', {
                 disabled: this.state.active,
                 type: 'text',
+                placeholder: ' maximum 10 letters',
                 hidden: this.state.active,
                 onChange: this.handleNameChange }),
               _react2.default.createElement('input', {
@@ -23035,7 +23039,7 @@ var Records = exports.Records = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          { className: 'column' },
+          { className: 'scoreBoard' },
           _react2.default.createElement(
             'h1',
             null,

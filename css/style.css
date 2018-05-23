@@ -22,6 +22,8 @@ input {
     border: none;
     border-radius: 10px;
     margin: 20px;
+    width: 150px;
+    justify-self: center;
 }
 .btn1:hover {
     background-color: lightskyblue;
@@ -41,10 +43,13 @@ input {
     background-color: white;
     color: lightskyblue;
 }
-.column {
-    margin-top: 50px;
-    width: 50%;
-    text-align: center;
+.congratulations {
+    display: grid;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: white;
+    margin: 0 auto;
+    max-width: 100%;
 }
 .container {
     display: grid;
@@ -66,6 +71,15 @@ input {
     flex-wrap: wrap;
     justify-content: space-around;
 }
+.scoreBoard {
+    margin-top: 50px;
+    text-align: center;
+}
+.wellDone {
+    margin-top: 50px;
+    text-align: center;
+}
+
 
 @media all and (min-width: 981px) {
     div.container {
@@ -79,7 +93,7 @@ input {
         grid-row: 1/2;
         align-self: center;
         margin-bottom: 7px;
-        margin-top: 5%;
+        margin-top: 2%;
     }
     button.btn1 {
         font-size: 200%;
@@ -90,6 +104,27 @@ input {
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-column: 1/5;
         display: grid;
+    }
+    .congratulations {
+        grid-template-columns: 1fr 1fr;
+    }
+    header.headerTwo {
+        font-size: 250%;
+        grid-column: 1/3;
+        margin-top: 30px;
+    }
+    .wellDone {
+        margin-top: 0;
+        grid-column: 1/2;
+        grid-row: 2/3;
+    }
+    .scoreBoard {
+        margin-top: 0;
+        grid-column: 2/3;
+        grid-row: 2/3;
+    }
+    .bottom {
+        grid-column: 1/3;
     }
 }
 
@@ -117,6 +152,27 @@ input {
     }
     input.memoryItem{
         margin: 5px;
+    }
+    .congratulations {
+        grid-template-columns: 1fr 1fr;
+    }
+    header.headerTwo {
+        font-size: 300%;
+        grid-column: 1/3;
+        margin-top: 30px;
+    }
+    .wellDone {
+        margin-top: 0;
+        grid-column: 1/2;
+        grid-row: 2/3;
+    }
+    .scoreBoard {
+        margin-top: 0;
+        grid-column: 2/3;
+        grid-row: 2/3;
+    }
+    .bottom {
+        grid-column: 1/3;
     }
 }
 
@@ -150,7 +206,7 @@ input {
 }
 
 @media all and (max-width: 736px) {
-    input.memoryItem{
+    input.memoryItem {
         max-width: 90px;
         max-height: 90px;
     }
@@ -181,8 +237,20 @@ input {
     button.btn1 {
         font-size: 150%;
     }
-    input.memoryItem{
+    input.memoryItem {
         max-width: 70px;
         max-height: 70px;
+    }
+    .congratulations{
+        grid-template-columns: 1fr;
+    }
+    header.headerTwo {
+        font-size: 250%;
+        margin-top: 10px;
+        margin-left: 0;
+    }
+    .scoreBoard{
+        grid-column: 1/2;
+        grid-row: 3/4;
     }
 }

@@ -10,16 +10,18 @@ export class Records extends React.Component {
     }
   }
   handleNameChange = (event) => {
-    this.setState({
-      playersName: event.target.value
-    })
+   if (event.target.value.length < 11) {
+     this.setState({
+       playersName: event.target.value
+     })
+   }
   };
   handleSubmit = (e, arr) => {
     e.preventDefault();
-    this.setState({
-      active: true
-    });
-    localStorage.setItem('memoRecords', JSON.stringify(arr));
+      this.setState({
+        active: true
+      });
+      localStorage.setItem('memoRecords', JSON.stringify(arr));
   };
   render() {
     const playersTime = this.props.timer;
@@ -32,15 +34,15 @@ export class Records extends React.Component {
     const scoreBoard = recordArr.sort(function (a, b) {
       return a.playersTime - b.playersTime }).map((recordArr, index) =>
       <p key={index}>{index + 1}
-        <span>   {recordArr.playersName}  </span>
+        <span>   {recordArr.playersName}   </span>
         <span>{recordArr.playersResult}</span>
       </p>);
     recordArr.push(placeNumber);
-    
+
     return (
-      <div className='container'>
-        <header>Congratulations!</header>
-        <div className='column'>
+      <div className='congratulations'>
+        <header className='headerTwo'>Congratulations!</header>
+        <div className='wellDone'>
           <h1> Well done! </h1>
           <h2> Your result is {playersResult(playersTime)} </h2>
           <h3> {recordArr.length < 5
@@ -48,6 +50,7 @@ export class Records extends React.Component {
             <form onSubmit={e => this.handleSubmit(e, recordArr)}><input
               disabled={this.state.active}
               type='text'
+              placeholder=' maximum 10 letters'
               hidden={this.state.active}
               onChange={this.handleNameChange}/><input
               hidden={this.state.active} disabled={this.state.active} type='submit'
@@ -62,6 +65,7 @@ export class Records extends React.Component {
               <form onSubmit={e => this.handleSubmit(e, recordArr)}><input
                 disabled={this.state.active}
                 type='text'
+                placeholder=' maximum 10 letters'
                 hidden={this.state.active}
                 onChange={this.handleNameChange}/><input
                 hidden={this.state.active} disabled={this.state.active} type='submit'
@@ -72,7 +76,7 @@ export class Records extends React.Component {
               <a>but... this time it's not enough ;)</a>
           }</h3>
         </div>
-        <div className='column'>
+        <div className='scoreBoard'>
           <h1>Score Board</h1>
           <h4> {scoreBoard} </h4>
         </div>
