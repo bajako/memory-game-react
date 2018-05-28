@@ -13,11 +13,11 @@ RDW is based on CSS Grid.
 
 Level Easy                 | Level Hard
 :-------------------------:|:-------------------------:
-![](https://github.com/bajako/memory-game-react/blob/master/img/memory_4.png)  |  ![](https://github.com/bajako/memory-game-react/blob/master/img/memory_1.png)
+![](https://github.com/bajako/memory-game-react/blob/master/img/memory_04.png)  |  ![](https://github.com/bajako/memory-game-react/blob/master/img/memory_01.png)
 
 Well done!                 | Well, not this time ;)
 :-------------------------:|:-------------------------:
-![](https://github.com/bajako/memory-game-react/blob/master/img/memory_2.png)  |  ![](https://github.com/bajako/memory-game-react/blob/master/img/memory_3.png)
+![](https://github.com/bajako/memory-game-react/blob/master/img/memory_02.png)  |  ![](https://github.com/bajako/memory-game-react/blob/master/img/memory_03.png)
 
 
 
