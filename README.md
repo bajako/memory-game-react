@@ -3,11 +3,23 @@
 This is a simple game created to improve my JS/React skills. 
 
 ## Few words about it...
-The application has difficulty levels.<br />
+It has difficulty levels.<br />
 Thanks to the use of localStorage, results are saved in the browser's memory, even after it's
 closed.<br />
 This simple game is created in React, I use Webpack.<br />
 RDW is based on CSS Grid.
+
+### Few screenshots:
+
+Level Easy                 | Level Hard
+:-------------------------:|:-------------------------:
+![](https://github.com/bajako/memory-game-react/blob/master/img/memory_4.png)  |  ![](https://github.com/bajako/memory-game-react/blob/master/img/memory_1.png)
+
+Well done!                 | Well, not this time ;)
+:-------------------------:|:-------------------------:
+![](https://github.com/bajako/memory-game-react/blob/master/img/memory_2.png)  |  ![](https://github.com/bajako/memory-game-react/blob/master/img/memory_3.png)
+
+
 
 ## Getting Started
 
