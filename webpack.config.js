@@ -1,7 +1,7 @@
 module.exports = {
   entry: './js/Memo.jsx',
   output: {
-    filename: './js/out.js'
+    filename: './js/out.js',
   },
   watch: true,
   module: {
@@ -11,8 +11,8 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
-          presets: ['env', 'stage-2', 'react']
-        }
-      }]
-  }
+          presets: ['env', 'stage-2', 'react'],
+        },
+      }],
+  },
 };

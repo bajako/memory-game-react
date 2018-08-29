@@ -1,12 +1,9 @@
 import React from 'react';
 
-export class Hard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render(){
+export default class Hard extends React.Component {
+  render() {
     return <button onClick={this.props.onClick} className='btn1'>
       Easy
-    </button>
+    </button>;
   }
 }

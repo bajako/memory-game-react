@@ -3,97 +3,97 @@ module.exports = [
     image: 'img/cloud1.png',
     cover: 'img/cover.png',
     pair: 'one',
-    disable: false
+    disable: false,
 
   },
   {
     image: 'img/cloud1.png',
     cover: 'img/cover.png',
     pair: '1one',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud2.png',
     cover: 'img/cover.png',
     pair: 'two',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud2.png',
     cover: 'img/cover.png',
     pair: '1two',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud3.png',
     cover: 'img/cover.png',
     pair: 'three',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud3.png',
     cover: 'img/cover.png',
     pair: '1three',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud4.png',
     cover: 'img/cover.png',
     pair: 'four',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud4.png',
     cover: 'img/cover.png',
     pair: '1four',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud5.png',
     cover: 'img/cover.png',
     pair: 'five',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud5.png',
     cover: 'img/cover.png',
     pair: '1five',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud6.png',
     cover: 'img/cover.png',
     pair: 'six',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud6.png',
     cover: 'img/cover.png',
     pair: '1six',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud7.png',
     cover: 'img/cover.png',
     pair: 'seven',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud7.png',
     cover: 'img/cover.png',
     pair: '1seven',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud8.png',
     cover: 'img/cover.png',
     pair: 'eight',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud8.png',
     cover: 'img/cover.png',
     pair: '1eight',
-    disable: false
-  }
+    disable: false,
+  },
 ];

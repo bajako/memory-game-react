@@ -9602,99 +9602,99 @@ module.exports = [
     image: 'img/animal1.png',
     cover: 'img/cover.png',
     pair: 'one',
-    disable: false
+    disable: false,
 
   },
   {
     image: 'img/animal1.png',
     cover: 'img/cover.png',
     pair: '1one',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/animal2.png',
     cover: 'img/cover.png',
     pair: 'two',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/animal2.png',
     cover: 'img/cover.png',
     pair: '1two',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/animal3.png',
     cover: 'img/cover.png',
     pair: 'three',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/animal3.png',
     cover: 'img/cover.png',
     pair: '1three',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/animal4.png',
     cover: 'img/cover.png',
     pair: 'four',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/animal4.png',
     cover: 'img/cover.png',
     pair: '1four',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/animal5.png',
     cover: 'img/cover.png',
     pair: 'five',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/animal5.png',
     cover: 'img/cover.png',
     pair: '1five',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/animal6.png',
     cover: 'img/cover.png',
     pair: 'six',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/animal6.png',
     cover: 'img/cover.png',
     pair: '1six',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/animal7.png',
     cover: 'img/cover.png',
     pair: 'seven',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/animal7.png',
     cover: 'img/cover.png',
     pair: '1seven',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/animal8.png',
     cover: 'img/cover.png',
     pair: 'eight',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/animal8.png',
     cover: 'img/cover.png',
     pair: '1eight',
-    disable: false
-  }
+    disable: false,
+  },
 ];
 
 
@@ -9707,99 +9707,99 @@ module.exports = [
     image: 'img/cloud1.png',
     cover: 'img/cover.png',
     pair: 'one',
-    disable: false
+    disable: false,
 
   },
   {
     image: 'img/cloud1.png',
     cover: 'img/cover.png',
     pair: '1one',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud2.png',
     cover: 'img/cover.png',
     pair: 'two',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud2.png',
     cover: 'img/cover.png',
     pair: '1two',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud3.png',
     cover: 'img/cover.png',
     pair: 'three',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud3.png',
     cover: 'img/cover.png',
     pair: '1three',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud4.png',
     cover: 'img/cover.png',
     pair: 'four',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud4.png',
     cover: 'img/cover.png',
     pair: '1four',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud5.png',
     cover: 'img/cover.png',
     pair: 'five',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud5.png',
     cover: 'img/cover.png',
     pair: '1five',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud6.png',
     cover: 'img/cover.png',
     pair: 'six',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud6.png',
     cover: 'img/cover.png',
     pair: '1six',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud7.png',
     cover: 'img/cover.png',
     pair: 'seven',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud7.png',
     cover: 'img/cover.png',
     pair: '1seven',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud8.png',
     cover: 'img/cover.png',
     pair: 'eight',
-    disable: false
+    disable: false,
   },
   {
     image: 'img/cloud8.png',
     cover: 'img/cover.png',
     pair: '1eight',
-    disable: false
-  }
+    disable: false,
+  },
 ];
 
 
@@ -9810,17 +9810,18 @@ module.exports = [
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 const shuffle = (array) => {
-  let currentIndex = array.length, randomIndex;
+  let currentIndex = array.length; let
+    randomIndex;
   // While there remain elements to shuffle
-  while (0 !== currentIndex) {
+  while (currentIndex !== 0) {
     // Pick a remaining element
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
     // And swap it with the current element
-    [array[currentIndex],array[randomIndex]] = [array[randomIndex], array[currentIndex]]
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
   }
   // While shuffle restore elements to their initial settings
-  array.forEach(function (playersChoice) {
+  array.forEach((playersChoice) => {
     playersChoice.disable = false;
     playersChoice.cover = 'img/cover.png';
   });
@@ -9859,13 +9860,23 @@ var _Shuffle = __webpack_require__(84);
 
 var _Cards = __webpack_require__(187);
 
+var _Cards2 = _interopRequireDefault(_Cards);
+
 var _Hard = __webpack_require__(189);
+
+var _Hard2 = _interopRequireDefault(_Hard);
 
 var _Easy = __webpack_require__(190);
 
+var _Easy2 = _interopRequireDefault(_Easy);
+
 var _Time = __webpack_require__(191);
 
+var _Time2 = _interopRequireDefault(_Time);
+
 var _Records = __webpack_require__(192);
+
+var _Records2 = _interopRequireDefault(_Records);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9926,12 +9937,12 @@ var MemoryTable = function (_React$Component) {
     value: function render() {
       var difficulty = void 0;
       if (this.state.level) {
-        difficulty = _react2.default.createElement(_Easy.Easy, { onClick: this.handleSwitchToLevelHard });
+        difficulty = _react2.default.createElement(_Easy2.default, { onClick: this.handleSwitchToLevelHard });
       } else {
-        difficulty = _react2.default.createElement(_Hard.Hard, { onClick: this.handleSwitchToLevelEasy });
+        difficulty = _react2.default.createElement(_Hard2.default, { onClick: this.handleSwitchToLevelEasy });
       }
       if (this.state.points > this.state.maxPoints) {
-        return _react2.default.createElement(_Records.Records, { points: this.state.points, timer: this.state.timer });
+        return _react2.default.createElement(_Records2.default, { points: this.state.points, timer: this.state.timer });
       }
       return _react2.default.createElement(
         'div',
@@ -9942,8 +9953,8 @@ var MemoryTable = function (_React$Component) {
           'Mem.ry game'
         ),
         difficulty,
-        _react2.default.createElement(_Time.Time, { points: this.state.points, startTimer: this.state.startTimer, maxPoints: this.state.maxPoints, callbackFromParentTimer: this.myCallbackTimer }),
-        _react2.default.createElement(_Cards.Cards, { difficultyLevel: this.state.level, callbackFromParentPoints: this.myCallbackPoints, callbackFromParentClick: this.myCallbackClick, points: this.state.points })
+        _react2.default.createElement(_Time2.default, { points: this.state.points, startTimer: this.state.startTimer, maxPoints: this.state.maxPoints, callbackFromParentTimer: this.myCallbackTimer }),
+        _react2.default.createElement(_Cards2.default, { difficultyLevel: this.state.level, callbackFromParentPoints: this.myCallbackPoints, callbackFromParentClick: this.myCallbackClick, points: this.state.points })
       );
     }
   }]);
@@ -10860,13 +10871,31 @@ module.exports = factory(isValidElement);
 
 
 
-var emptyFunction = __webpack_require__(9);
-var invariant = __webpack_require__(1);
-var warning = __webpack_require__(2);
 var assign = __webpack_require__(4);
 
 var ReactPropTypesSecret = __webpack_require__(56);
 var checkPropTypes = __webpack_require__(96);
+
+var printWarning = function() {};
+
+if (process.env.NODE_ENV !== 'production') {
+  printWarning = function(text) {
+    var message = 'Warning: ' + text;
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+}
+
+function emptyFunctionThatReturnsNull() {
+  return null;
+}
 
 module.exports = function(isValidElement, throwOnDirectAccess) {
   /* global Symbol */
@@ -11010,12 +11039,13 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
       if (secret !== ReactPropTypesSecret) {
         if (throwOnDirectAccess) {
           // New behavior only for users of `prop-types` package
-          invariant(
-            false,
+          var err = new Error(
             'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
             'Use `PropTypes.checkPropTypes()` to call them. ' +
             'Read more at http://fb.me/use-check-prop-types'
           );
+          err.name = 'Invariant Violation';
+          throw err;
         } else if (process.env.NODE_ENV !== 'production' && typeof console !== 'undefined') {
           // Old behavior for people using React.PropTypes
           var cacheKey = componentName + ':' + propName;
@@ -11024,15 +11054,12 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
             // Avoid spamming the console because they are often not actionable except for lib authors
             manualPropTypeWarningCount < 3
           ) {
-            warning(
-              false,
+            printWarning(
               'You are manually calling a React.PropTypes validation ' +
-              'function for the `%s` prop on `%s`. This is deprecated ' +
+              'function for the `' + propFullName + '` prop on `' + componentName  + '`. This is deprecated ' +
               'and will throw in the standalone `prop-types` package. ' +
               'You may be seeing this warning due to a third-party PropTypes ' +
-              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.',
-              propFullName,
-              componentName
+              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.'
             );
             manualPropTypeCallCache[cacheKey] = true;
             manualPropTypeWarningCount++;
@@ -11076,7 +11103,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
   }
 
   function createAnyTypeChecker() {
-    return createChainableTypeChecker(emptyFunction.thatReturnsNull);
+    return createChainableTypeChecker(emptyFunctionThatReturnsNull);
   }
 
   function createArrayOfTypeChecker(typeChecker) {
@@ -11126,8 +11153,8 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
   function createEnumTypeChecker(expectedValues) {
     if (!Array.isArray(expectedValues)) {
-      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
-      return emptyFunction.thatReturnsNull;
+      process.env.NODE_ENV !== 'production' ? printWarning('Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
+      return emptyFunctionThatReturnsNull;
     }
 
     function validate(props, propName, componentName, location, propFullName) {
@@ -11169,21 +11196,18 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
   function createUnionTypeChecker(arrayOfTypeCheckers) {
     if (!Array.isArray(arrayOfTypeCheckers)) {
-      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
-      return emptyFunction.thatReturnsNull;
+      process.env.NODE_ENV !== 'production' ? printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
+      return emptyFunctionThatReturnsNull;
     }
 
     for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
       var checker = arrayOfTypeCheckers[i];
       if (typeof checker !== 'function') {
-        warning(
-          false,
+        printWarning(
           'Invalid argument supplied to oneOfType. Expected an array of check functions, but ' +
-          'received %s at index %s.',
-          getPostfixForTypeWarning(checker),
-          i
+          'received ' + getPostfixForTypeWarning(checker) + ' at index ' + i + '.'
         );
-        return emptyFunction.thatReturnsNull;
+        return emptyFunctionThatReturnsNull;
       }
     }
 
@@ -11410,11 +11434,24 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 
+var printWarning = function() {};
+
 if (process.env.NODE_ENV !== 'production') {
-  var invariant = __webpack_require__(1);
-  var warning = __webpack_require__(2);
   var ReactPropTypesSecret = __webpack_require__(56);
   var loggedTypeFailures = {};
+
+  printWarning = function(text) {
+    var message = 'Warning: ' + text;
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
 }
 
 /**
@@ -11439,12 +11476,29 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
         try {
           // This is intentionally an invariant that gets caught. It's the same
           // behavior as without this statement except with a better message.
-          invariant(typeof typeSpecs[typeSpecName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'the `prop-types` package, but received `%s`.', componentName || 'React class', location, typeSpecName, typeof typeSpecs[typeSpecName]);
+          if (typeof typeSpecs[typeSpecName] !== 'function') {
+            var err = Error(
+              (componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' +
+              'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.'
+            );
+            err.name = 'Invariant Violation';
+            throw err;
+          }
           error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
         } catch (ex) {
           error = ex;
         }
-        warning(!error || error instanceof Error, '%s: type specification of %s `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error);
+        if (error && !(error instanceof Error)) {
+          printWarning(
+            (componentName || 'React class') + ': type specification of ' +
+            location + ' `' + typeSpecName + '` is invalid; the type checker ' +
+            'function must return `null` or an `Error` but returned a ' + typeof error + '. ' +
+            'You may have forgotten to pass an argument to the type checker ' +
+            'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' +
+            'shape all require an argument).'
+          )
+
+        }
         if (error instanceof Error && !(error.message in loggedTypeFailures)) {
           // Only monitor this failure once because there tends to be a lot of the
           // same error.
@@ -11452,7 +11506,9 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 
           var stack = getStack ? getStack() : '';
 
-          warning(false, 'Failed %s type: %s%s', location, error.message, stack != null ? stack : '');
+          printWarning(
+            'Failed ' + location + ' type: ' + error.message + (stack != null ? stack : '')
+          );
         }
       }
     }
@@ -22488,7 +22544,6 @@ module.exports = ReactDOMInvalidARIAHook;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Cards = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -22508,6 +22563,8 @@ var _Shuffle = __webpack_require__(84);
 
 var _GameBoard = __webpack_require__(188);
 
+var _GameBoard2 = _interopRequireDefault(_GameBoard);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22516,7 +22573,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Cards = exports.Cards = function (_React$Component) {
+var Cards = function (_React$Component) {
   _inherits(Cards, _React$Component);
 
   function Cards(props) {
@@ -22530,17 +22587,14 @@ var Cards = exports.Cards = function (_React$Component) {
       });
       // Timer starts with first click of every new game
       if (!_this.state.start) {
-        _this.setState({
-          start: true });
+        _this.setState({ start: true });
       }
       // When start first game, or just found a pair
       _this.someFnClick();
       if (_this.state.pair === '') {
-        _this.setState({
-          pair: playersChoice.pair });
+        _this.setState({ pair: playersChoice.pair });
         _this.setState(function (prevState) {
-          return {
-            prevPlayersChoice: prevState.playersChoice };
+          return { prevPlayersChoice: prevState.playersChoice };
         });
         // Picked 'dot' shows the image behind itself
         playersChoice.cover = playersChoice.image;
@@ -22618,16 +22672,16 @@ var Cards = exports.Cards = function (_React$Component) {
       var gameBoardElements = void 0;
       if (this.props.difficultyLevel) {
         gameBoardElements = _LevelEasy2.default.map(function (card) {
-          return _react2.default.createElement(_GameBoard.GameBoard, { card: card, callbackFromParentChoice: _this2.myCallbackChoice });
+          return _react2.default.createElement(_GameBoard2.default, { card: card, callbackFromParentChoice: _this2.myCallbackChoice });
         });
       } else {
         gameBoardElements = _LevelHard2.default.map(function (card) {
-          return _react2.default.createElement(_GameBoard.GameBoard, { card: card, callbackFromParentChoice: _this2.myCallbackChoice });
+          return _react2.default.createElement(_GameBoard2.default, { card: card, callbackFromParentChoice: _this2.myCallbackChoice });
         });
       }
       return _react2.default.createElement(
         'div',
-        { className: 'memoryBoard' },
+        { className: 'memory-board' },
         gameBoardElements
       );
     }
@@ -22635,6 +22689,8 @@ var Cards = exports.Cards = function (_React$Component) {
 
   return Cards;
 }(_react2.default.Component);
+
+exports.default = Cards;
 
 /***/ }),
 /* 188 */
@@ -22646,7 +22702,6 @@ var Cards = exports.Cards = function (_React$Component) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.GameBoard = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -22662,31 +22717,38 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var GameBoard = exports.GameBoard = function (_React$Component) {
+var GameBoard = function (_React$Component) {
   _inherits(GameBoard, _React$Component);
 
-  function GameBoard(props) {
+  function GameBoard() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
     _classCallCheck(this, GameBoard);
 
-    var _this = _possibleConstructorReturn(this, (GameBoard.__proto__ || Object.getPrototypeOf(GameBoard)).call(this, props));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-    _this.someFnChoice = function () {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = GameBoard.__proto__ || Object.getPrototypeOf(GameBoard)).call.apply(_ref, [this].concat(args))), _this), _this.someFnChoice = function () {
       var cardInfo = _this.props.card;
       _this.props.callbackFromParentChoice(cardInfo);
-    };
-
-    return _this;
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(GameBoard, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('input', { type: 'image', src: this.props.card.cover, disabled: this.props.card.disable, className: 'memoryItem', key: this.props.card.pair, onClick: this.someFnChoice });
+      return _react2.default.createElement('input', { type: 'image', src: this.props.card.cover, disabled: this.props.card.disable, className: 'memory-item',
+        key: this.props.card.pair, onClick: this.someFnChoice });
     }
   }]);
 
   return GameBoard;
 }(_react2.default.Component);
+
+exports.default = GameBoard;
 
 /***/ }),
 /* 189 */
@@ -22698,7 +22760,6 @@ var GameBoard = exports.GameBoard = function (_React$Component) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Hard = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -22714,13 +22775,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Hard = exports.Hard = function (_React$Component) {
+var Hard = function (_React$Component) {
   _inherits(Hard, _React$Component);
 
-  function Hard(props) {
+  function Hard() {
     _classCallCheck(this, Hard);
 
-    return _possibleConstructorReturn(this, (Hard.__proto__ || Object.getPrototypeOf(Hard)).call(this, props));
+    return _possibleConstructorReturn(this, (Hard.__proto__ || Object.getPrototypeOf(Hard)).apply(this, arguments));
   }
 
   _createClass(Hard, [{
@@ -22737,6 +22798,8 @@ var Hard = exports.Hard = function (_React$Component) {
   return Hard;
 }(_react2.default.Component);
 
+exports.default = Hard;
+
 /***/ }),
 /* 190 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -22747,7 +22810,6 @@ var Hard = exports.Hard = function (_React$Component) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Easy = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -22763,13 +22825,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Easy = exports.Easy = function (_React$Component) {
+var Easy = function (_React$Component) {
   _inherits(Easy, _React$Component);
 
-  function Easy(props) {
+  function Easy() {
     _classCallCheck(this, Easy);
 
-    return _possibleConstructorReturn(this, (Easy.__proto__ || Object.getPrototypeOf(Easy)).call(this, props));
+    return _possibleConstructorReturn(this, (Easy.__proto__ || Object.getPrototypeOf(Easy)).apply(this, arguments));
   }
 
   _createClass(Easy, [{
@@ -22786,6 +22848,8 @@ var Easy = exports.Easy = function (_React$Component) {
   return Easy;
 }(_react2.default.Component);
 
+exports.default = Easy;
+
 /***/ }),
 /* 191 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -22796,7 +22860,6 @@ var Easy = exports.Easy = function (_React$Component) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Time = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -22812,7 +22875,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Time = exports.Time = function (_React$Component) {
+var Time = function (_React$Component) {
   _inherits(Time, _React$Component);
 
   function Time(props) {
@@ -22879,6 +22942,8 @@ var Time = exports.Time = function (_React$Component) {
   return Time;
 }(_react2.default.Component);
 
+exports.default = Time;
+
 /***/ }),
 /* 192 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -22889,7 +22954,6 @@ var Time = exports.Time = function (_React$Component) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Records = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -22907,7 +22971,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Records = exports.Records = function (_React$Component) {
+var Records = function (_React$Component) {
   _inherits(Records, _React$Component);
 
   function Records(props) {
@@ -22949,7 +23013,7 @@ var Records = exports.Records = function (_React$Component) {
         playersResult: (0, _Result.playersResult)(playersTime),
         playersTime: playersTime
       };
-      var recordArr = typeof localStorage['memoRecords'] !== 'undefined' ? JSON.parse(localStorage.getItem('memoRecords')) : [{ playersName: 'Test', playersResult: '03:50', playersTime: 230 }];
+      var recordArr = typeof localStorage.memoRecords !== 'undefined' ? JSON.parse(localStorage.getItem('memoRecords')) : [{ playersName: 'Test', playersResult: '03:50', playersTime: 230 }];
       var scoreBoard = recordArr.sort(function (a, b) {
         return a.playersTime - b.playersTime;
       }).map(function (recordArr, index) {
@@ -22978,12 +23042,12 @@ var Records = exports.Records = function (_React$Component) {
         { className: 'congratulations' },
         _react2.default.createElement(
           'header',
-          { className: 'headerTwo' },
+          { className: 'header-two' },
           'Congratulations!'
         ),
         _react2.default.createElement(
           'div',
-          { className: 'wellDone' },
+          { className: 'well-done' },
           _react2.default.createElement(
             'h1',
             null,
@@ -23033,13 +23097,13 @@ var Records = exports.Records = function (_React$Component) {
             ) : _react2.default.createElement(
               'a',
               null,
-              'but... this time it\'s not enough ;)'
+              "but... this time it's not enough ;)"
             )
           )
         ),
         _react2.default.createElement(
           'div',
-          { className: 'scoreBoard' },
+          { className: 'score-board' },
           _react2.default.createElement(
             'h1',
             null,
@@ -23067,21 +23131,21 @@ var Records = exports.Records = function (_React$Component) {
   return Records;
 }(_react2.default.Component);
 
+exports.default = Records;
+
 /***/ }),
 /* 193 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-const playersResult =(playersTime)=> {
-  return `${playersTime < 10 ?
-    '00:0' + playersTime
-    : playersTime < 60 ?
-      '00:' + playersTime
-      : playersTime % 60 < 10 ?
-        '0' + Math.floor(playersTime / 60) + ':0' + playersTime % 60 :
-        '0' + Math.floor(playersTime / 60) + ':' + playersTime % 60}`;
-};
+const playersResult = playersTime => `${playersTime < 10
+  ? `00:0${playersTime}`
+  : playersTime < 60
+    ? `00:${playersTime}`
+    : playersTime % 60 < 10
+      ? `0${Math.floor(playersTime / 60)}:0${playersTime % 60}`
+      : `0${Math.floor(playersTime / 60)}:${playersTime % 60}`}`;
 /* harmony export (immutable) */ __webpack_exports__["playersResult"] = playersResult;
 
 
