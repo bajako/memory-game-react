@@ -32,7 +32,7 @@ You can:
   ```
   It will install all dependencies (listed in **package.json**) that you need to enjoy the game.
   
-  Next, if you have your **webpack** installed globaly type:
+  Next, if you have your **webpack** installed globally type:
   ```
   webpack
   ```
